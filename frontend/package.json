@@ -1,0 +1,57 @@
+{
+  "name": "lol-overlay",
+  "version": "1.0.0",
+  "description": "LoL ARAM Overlay",
+  "author": "User",
+  "private": true,
+  "main": "public/electron.js",
+  "homepage": "./",
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-scripts": "5.0.1"
+  },
+  "devDependencies": {
+    "electron": "^28.0.0",
+    "electron-builder": "^24.13.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "electron": "electron .",
+    "dist": "npm run build && electron-builder"
+  },
+  "build": {
+    "appId": "com.loloverlay.app",
+    "productName": "LoL Overlay Pro",
+    "win": {
+      "target": "nsis",
+      "icon": "public/favicon.ico"
+    },
+    "extraResources": [
+      {
+        "from": "../backend/dist/lol_api",
+        "to": "lol_backend"
+      },
+      {
+        "from": "public/favicon.ico",
+        "to": "tray_icon.ico"
+      }
+    ],
+    "directories": {
+      "output": "dist"
+    }
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
