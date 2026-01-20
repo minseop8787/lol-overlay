@@ -2,6 +2,10 @@
   "name": "lol-overlay",
   "version": "1.0.0",
   "description": "LoL ARAM Overlay",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/minseop8787/lol-overlay.git"
+  },
   "author": "User",
   "private": true,
   "main": "public/electron.js",
