@@ -1,0 +1,3229 @@
+[
+  {
+    "name_en": "ADAPt",
+    "augment_type": "Silver",
+    "tier_global": "S",
+    "tips_flat": [
+      "power per 0.6 bonus attack damage. Additionally, increase your ability power by 15%.",
+      "Even if you ignore the AD conversion, 15% AP is pretty decent…",
+      "Becomes even more valuable once you start buying stat anvils",
+      "Good AD items to build:",
+      "Infinity Edge (if you have some kind of crit synergy from other augments)",
+      "Muramana (if you have another mana item)",
+      "Hubris isn’t terrible",
+      "Blade of the Ruined King on AP/on-hit users (Kayle, Kat…)",
+      "Most Bruiser items can be okay"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Even if you ignore the AD conversion, 15% AP is pretty decent…",
+          "Becomes even more valuable once you start buying stat anvils"
+        ]
+      },
+      {
+        "heading": "Good AD items to build",
+        "bullets": [
+          "Infinity Edge (if you have some kind of crit synergy from other augments)",
+          "Muramana (if you have another mana item)",
+          "Hubris isn’t terrible",
+          "Blade of the Ruined King on AP/on-hit users (Kayle, Kat…)",
+          "Most Bruiser items can be okay"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Active",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "and them a shield that absorbs 100 – 250 (based on level) (+ 100% of your AP) (+",
+      "10% of your bonus health) damage for 3 seconds (30 second cooldown).",
+      "It’s okay on tanks to peel for a hypercarry, but kinda bait on enchanters because the channel is too slow and you’ll just die"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s okay on tanks to peel for a hypercarry, but kinda bait on enchanters because the channel is too slow and you’ll just die"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Adamant",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "on level) bonus armor and bonus magic resistance for 10 seconds, stacking up to 10",
+      "times for a total of 20 – 100 (based on level) bonus resistances, and refreshing on",
+      "subsequent triggers.",
+      "Good on AoE cc only or if you have a lot of haste on cc abilities"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good on AoE cc only or if you have a lot of haste on cc abilities"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "All For You",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "effectiveness by 30%.",
+      "Scales really well with other heal multipliers"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Scales really well with other heal multipliers"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Apex Inventor",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "for items.",
+      "There’s way less items to work with than in Arena and also very nerfed. Would be more fun if this were buffed to like 150 haste (60% cdr) or 200 haste (66% cdr)"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "There’s way less items to work with than in Arena and also very nerfed. Would be more fun if this were buffed to like 150 haste (60% cdr) or 200 haste (66% cdr)"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Back to Basics",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "ability haste and 35% increased healing and shielding from all sources, but your",
+      "Ultimate ability is permanently sealed.",
+      "OP if your champ doesn’t really use ult in ARAM: Pantheon, Ryze, TF…",
+      "If your champ’s ult isn’t core to their gameplay, this is a good augment"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "OP if your champ doesn’t really use ult in ARAM: Pantheon, Ryze, TF…",
+          "If your champ’s ult isn’t core to their gameplay, this is a good augment"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Big Brain",
+    "augment_type": "Gold",
+    "tier_global": "D",
+    "tips_flat": [
+      "destroyed. Shield is replenished upon respawn.",
+      "Way worse than in Arena since it can be broken very easily and comes back way less often"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Way worse than in Arena since it can be broken very easily and comes back way less often"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Biggest Snowball Ever",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "empowering it with an increased size radius and the ability to pass through"
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Blade Waltz",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "Blade Waltz: Blink to the target enemy champion. After 0.25 seconds, you then",
+      "blink to the nearest enemy champion every 0.25 seconds over the next 1.75 seconds,",
+      "blinking up to 7 additional times. Each time you blink to a target, deal 30 – 150 (based",
+      "on level) (+ 10% bonus AD) (+ 6% AP) physical damage to them and apply on-hit",
+      "effects at 50% effectiveness, up to a total of 240 – 1200 (based on level) (+ 80% bonus",
+      "AD) (+ 48% AP).",
+      "While Blade Waltz is active, you are untargetable and unable to act. This effect",
+      "will end prematurely if there are no longer any nearby valid targets to blink to. A target",
+      "can be blinked to more than once."
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Blunt Force",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "Scales quite well after buffs, but still weak early"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Scales quite well after buffs, but still weak early"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Bread And Butter",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "The haste from the augment is additive to normal haste"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The haste from the augment is additive to normal haste"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Bread And Cheese",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "The haste from the augment is additive to normal haste"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The haste from the augment is additive to normal haste"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Bread And Jam",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "The haste from the augment is additive to normal haste"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The haste from the augment is additive to normal haste"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Bread and Butter",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Bread and Cheese",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Bread and Jam",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Buff Buddies",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "Safe option for health + mana regen"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Safe option for health + mana regen"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Can't Touch This",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "second cooldown).",
+      "OP on champs like Karma, Udyr, Jayce, Corki…",
+      "Really good for baiting stuff"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "OP on champs like Karma, Udyr, Jayce, Corki…",
+          "Really good for baiting stuff"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Celestial Body",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "Really strong early, and has good synergy with any health scaling",
+      "Can be used to help proc Warmogs faster"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really strong early, and has good synergy with any health scaling",
+          "Can be used to help proc Warmogs faster"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Cerberus",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "It’s a bit underpowered for a prismatic augment"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s a bit underpowered for a prismatic augment"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Cheating",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "completion blink you to your team's spawn. Additionally, you no longer lose the",
+      "ability to purchase items from the shop from exiting the shop area, and the fountain will",
+      "now provide healing and resource restoration for you.",
+      "Still have to still through a full recall timer, and sometimes it’s just better to die",
+      "I should probably check if this lets you take your augments…"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Still have to still through a full recall timer, and sometimes it’s just better to die",
+          "I should probably check if this lets you take your augments…"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Circle Of Death",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "70% of that value in magic damage to the nearest enemy champion within 1000 units.",
+      "Really good on drain/heal tanks, okay on enchanters that heal",
+      "Really good with other sources of healing from augments (Perserverance, Ocean Soul…)"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good on drain/heal tanks, okay on enchanters that heal",
+          "Really good with other sources of healing from augments (Perserverance, Ocean Soul…)"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Circle of Death",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Clown College",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "explosion. Replaces Flee with Deceive."
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Courage of the Colossus",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "grants a shield for 3 seconds that absorbs 100 – 300 (based on level) (+ 5%",
+      "maximum health) damage (5 second cooldown per cast instance). Shields can stack",
+      "between multiple triggers of this effect, though not refreshing the duration of previous",
+      "shields.",
+      "It’s okay, but a bit underwhelming for a Prismatic. There are some gold tank augments I’d rather have"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s okay, but a bit underwhelming for a Prismatic. There are some gold tank augments I’d rather have"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Critical Healing",
+    "augment_type": "Gold",
+    "tier_global": "S",
+    "tips_flat": [
+      "critical strike chance to increase in effectiveness by 40%. Additionally, gain 25% critical",
+      "strike chance.",
+      "You can build Rite of Ruin and/or Atma’s Reckoning, and it’s just insane synergy"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "You can build Rite of Ruin and/or Atma’s Reckoning, and it’s just insane synergy"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Critical Rhythm",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "seconds, stacking up to 10 times for a total of 60%. Additionally, gain 25% critical strike",
+      "chance.",
+      "Let’s you drop a Zeal item and gives a good amount of stats,"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Let’s you drop a Zeal item and gives a good amount of stats,"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Cruelty",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "above them that lands at their current location after 1 second, dealing 50 – 150 (based",
+      "on level) (+ 40% AP) (+ 4% of your maximum health) magic damage to enemies within",
+      "the area (6 second cooldown per target per cast instance).",
+      "Much worse than the item is in Arena"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Much worse than the item is in Arena"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Dashing",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "Really OP with Swift is Safe and decent for Outlaw’s Grit",
+      "Champs with multiple dashes are broken with this (Sylas, Akali…)"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really OP with Swift is Safe and decent for Outlaw’s Grit",
+          "Champs with multiple dashes are broken with this (Sylas, Akali…)"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Dawnbringer's Resolve",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "healed for 30% maximum health over 3 seconds (45 second cooldown, reset upon",
+      "death).",
+      "Underwhelming, considering it gets countered by antiheal"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Underwhelming, considering it gets countered by antiheal"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Deft",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "Very good for a silver on champs that want AS",
+      "Let’s you not build an attackspeed item on some crit champs"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Very good for a silver on champs that want AS",
+          "Let’s you not build an attackspeed item on some crit champs"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Demon's Dance",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "runes.",
+      "Not that great, you get a bit of movespeed and a bit of damage + max hp, but not enough to be better than other augments"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Not that great, you get a bit of movespeed and a bit of damage + max hp, but not enough to be better than other augments"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Dive Bomber",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "target's maximum health to enemies within 500 units.",
+      "Decent into low range teams"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Decent into low range teams"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Divine Intervention",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "a protective star upon you that descends over 2.5 seconds. Afterwards, you and all",
+      "allied champions within 400 units become invulnerable for 2.5 seconds (35",
+      "second cooldown).",
+      "It’s a static timer",
+      "Generally good for engage, it’s okay to go in a little early and let it land after your cc wears off"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s a static timer",
+          "Generally good for engage, it’s okay to go in a little early and let it land after your cc wears off"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Don't Blink",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "the target.",
+      "Decent on ranged champions that have good movespeed synergies (FAST Jhin, Zeri, Vayne, Sivir…), bad otherwise",
+      "Maybe good with Tap Dancer/Homeguards"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Decent on ranged champions that have good movespeed synergies (FAST Jhin, Zeri, Vayne, Sivir…), bad otherwise",
+          "Maybe good with Tap Dancer/Homeguards"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Draw Your Sword",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "Additionally, gain 30% bonus attack damage, 25% bonus attack speed, 30% bonus",
+      "health, 25% bonus movement speed, and 20% life steal. These bonuses are increased",
+      "by 0% – 30% (based on attack range).",
+      "This augment is only available for ranged champions.",
+      "Can be good if enemy team is low on burst and cc"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Can be good if enemy team is low on burst and cc"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Dual Wield",
+    "augment_type": "Prismatic",
+    "tier_global": "S",
+    "tips_flat": [
+      "bolt that repeats 40% of the original attack's pre-mitigation damage and applies on-hit",
+      "effects at 40% effectiveness.",
+      "On-hit augment, but also just synergizes well with a lot of other augments"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "On-hit augment, but also just synergizes well with a lot of other augments"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Earthwake",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "the location you moved to your destination that detonates after 0.75 seconds in a 300",
+      "radius, dealing 70 – 210 (based on level) (+ 125% bonus AD) (+ 60% AP) physical",
+      "damage per explosion to enemies hit, reduced to 70% against minions. Enemies",
+      "can only be affected once every 0.5 seconds from all cast instances.",
+      "This augment is only offered to up to 2 players on each team for a given game.",
+      "Obviously meant for champs with dashes",
+      "The ratios aren’t as good as they once were in OG Arena, so it’s not that crazy, but the AOE has more targets it can hit, and there’s also snowball…",
+      "Works with Earthwake for some reason"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Obviously meant for champs with dashes",
+          "The ratios aren’t as good as they once were in OG Arena, so it’s not that crazy, but the AOE has more targets it can hit, and there’s also snowball…",
+          "Works with Earthwake for some reason"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Empyrean Promise",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "Empyrean Promise's Vigilance active. Additionally, gain 15% heal and shield power."
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Energized attack do not consume any Energize stacks on",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "Energized, your next basic attack deals bonus magic damage on-hit equal to 10%",
+      "of the target's current health.",
+      "Really OP on RFC users, can also build Stormrazor + Voltaic",
+      "You can either play around hitting different enemy champs, or just double-tap one champ with RFC range",
+      "For some reason also has % current health magic damage",
+      "Also synergizes with Fleet if you get it"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really OP on RFC users, can also build Stormrazor + Voltaic",
+          "You can either play around hitting different enemy champs, or just double-tap one champ with RFC range",
+          "For some reason also has % current health magic damage",
+          "Also synergizes with Fleet if you get it"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Erosion",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "resistance by 1.5% for 4 seconds, stacking up to 20 times for a total of 30% resistances",
+      "reduction.",
+      "Really good on champs that have AoE DoTs and/or build Liandries + Blackfire because item damage counts"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good on champs that have AoE DoTs and/or build Liandries + Blackfire because item damage counts"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "EscAPADe",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "bonus attack damage per 1.66 ability power. Additionally, increase your total attack",
+      "damage by 15%.",
+      "Even if you ignore the AP conversion, 15% AD is quite good",
+      "Becomes even more valuable once you start buying stat anvils",
+      "Really good on poke Ashe",
+      "It is better to build core items first before investing in AP items for the stats (crit/attackspeed/whatever is core for your champ)",
+      "Unlike ADAPt, doesn’t convert bonus AP from Archangels/Riftmaker (bug)",
+      "Good AP items to build:",
+      "Raw AP for the high AD conversion(Deathcap, Horizon Focus, Blackfire Torch…)",
+      "Zhonyas/Banshees"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Even if you ignore the AP conversion, 15% AD is quite good",
+          "Becomes even more valuable once you start buying stat anvils",
+          "Really good on poke Ashe",
+          "It is better to build core items first before investing in AP items for the stats (crit/attackspeed/whatever is core for your champ)",
+          "Unlike ADAPt, doesn’t convert bonus AP from Archangels/Riftmaker (bug)"
+        ]
+      },
+      {
+        "heading": "Good AP items to build",
+        "bullets": [
+          "Raw AP for the high AD conversion(Deathcap, Horizon Focus, Blackfire Torch…)",
+          "Zhonyas/Banshees"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Escape Plan",
+    "augment_type": "Silver",
+    "tier_global": "S",
+    "tips_flat": [
+      "65% of your maximum health, 150% bonus movement speed, and reduced size (75",
+      "second cooldown). These effects decay quickly over a few seconds.",
+      "Really good layer of protection on most champs",
+      "Can be used to help gap-close offensively for fighters/assassins"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good layer of protection on most champs",
+          "Can be used to help gap-close offensively for fighters/assassins"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Ethereal Weapon",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "cooldown per target).",
+      "Really good if you can play around it",
+      "Really good synergy with ADAPt or EscAPADe or on-hit augments",
+      "Really OP on DoT champs"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good if you can play around it",
+          "Really good synergy with ADAPt or EscAPADe or on-hit augments",
+          "Really OP on DoT champs"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Eureka",
+    "augment_type": "Prismatic",
+    "tier_global": "S",
+    "tips_flat": [
+      "Really OP, just build as much raw AP as possible"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really OP, just build as much raw AP as possible"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Executioner",
+    "augment_type": "Gold",
+    "tier_global": "S",
+    "tips_flat": [
+      "health. Scoring a champion takedown resets the cooldown of all your basic abilities.",
+      "Broken OP on any champ that has any important cooldown"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Broken OP on any champ that has any important cooldown"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Fan the Hammer",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Feel the Burn",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "Additionally, Ignite counts as a Burn source.",
+      "Feel the Burn: Casts both Exhaust and Ignite on all enemy champions",
+      "within 800 units, with the former having its slow strength increased to 50% and the",
+      "latter modified to deal 70 – 410 (based on level) true damage over the duration.",
+      "A nearby enemy champion is required to cast this spell.",
+      "Can potentially mitigate a lot of damage but it’s hard to use because you need to be mindful of all enemy champs"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Can potentially mitigate a lot of damage but it’s hard to use because you need to be mindful of all enemy champs"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Fetch",
+    "augment_type": "Silver",
+    "tier_global": "D",
+    "tips_flat": [
+      "Additionally, nearby allied champions that use Mark will cause it to drop a snowball",
+      "on the ground after reaching maximum range or hitting an enemy. You can pick up this",
+      "snowball to refresh the cooldown of your Mark.",
+      "Really teamcomp dependent, probably okay on assassins/divers"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really teamcomp dependent, probably okay on assassins/divers"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Fey Magic",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "harmless critters for 2 seconds, during which their base movement speed is reduced by",
+      "60, and disarms them for the same duration (15 second cooldown per target).",
+      "OP on stuff like Katarina, Kennen…"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "OP on stuff like Katarina, Kennen…"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Final Form",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "gain a shield for 50% of your maximum health, 20% omnivamp, and 30% bonus",
+      "movement speed for the duration (20 second cooldown).",
+      "Some champs like Aatrox become god with this.",
+      "Apparently, you can use this on Sion passive if you choose R as the button"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Some champs like Aatrox become god with this.",
+          "Apparently, you can use this on Sion passive if you choose R as the button"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Firebrand",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "equal to「 0.4% of the target's maximum health per second. 」This Burn stacks infinitely",
+      "and refreshes with each application.",
+      "Good vs high hp tanks, bad otherwise"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good vs high hp tanks, bad otherwise"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "First",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "Safe enchanter pick, decent on tanks with lots of healing/shielding"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Safe enchanter pick, decent on tanks with lots of healing/shielding"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "First Aid Kit",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Flash 2",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "gain 70 summoner spell haste.",
+      "If you already have Flash, no substitutions are made; you can have Flash in",
+      "both of your summoner spell slots while equipped with this augment.",
+      "There might be some Flashbang setup",
+      "Idk how it interacts with Flashy"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "There might be some Flashbang setup",
+          "Idk how it interacts with Flashy"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Flashbang",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "70 – 240 (based on level) (+ 70% AD) (+ 60% AP) magic damage to nearby enemies",
+      "and slows them by 35% for 1.25 seconds. Additionally, the cooldown of your",
+      "Flash resets upon your death.",
+      "Its okay if you are an AoE engager, bad otherwise without augment support"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Its okay if you are an AoE engager, bad otherwise without augment support"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Flashy",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "(180 seconds recharge time).",
+      "Works with other flash augments"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Works with other flash augments"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "From Beginning To End",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "runes.",
+      "There’s better options but it’s fine"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "There’s better options but it’s fine"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Frost Wraith",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "pulse around you in 450 radius that roots nearby enemies for 1.25 seconds (6.5",
+      "second cooldown).",
+      "Good to time with Mark(snowball) for harass",
+      "Really good for extending cc chains, but you have to pay attention and also be wary of combo breaker",
+      "Not worth on backliners"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good to time with Mark(snowball) for harass",
+          "Really good for extending cc chains, but you have to pay attention and also be wary of combo breaker",
+          "Not worth on backliners"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Gash",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "(based on level) (+ ( 25% / 20%) bonus armor) bonus true damage.",
+      "Very situational, especially because it’s hard to support this with most of the Arena items missing"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Very situational, especially because it’s hard to support this with most of the Arena items missing"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Get Excited",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "speed and 15% total attack speed for 4 seconds.",
+      "Pretty good, especially for melees"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Pretty good, especially for melees"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Giant Slayer",
+    "augment_type": "Prismatic",
+    "tier_global": "S",
+    "tips_flat": [
+      "movement speed. Additionally, deal 10% / 15% / 25% / 30% (based on target's size)",
+      "bonus damage against enemy champions with greater size than you.",
+      "This is also just OP, you get free damage and movespeed"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "This is also just OP, you get free damage and movespeed"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Glass Cannon",
+    "augment_type": "Prismatic",
+    "tier_global": "D",
+    "tips_flat": [
+      "cannot be modified nor exceeded by any means. In return, you deal bonus true damage",
+      "equal to 15% of all of the damage you deal post-mitigation.",
+      "The reward isn’t really enough compared to the cost"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The reward isn’t really enough compared to the cost"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Goldrend",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "additional 50 – 150 (based on level) (+ 40% bonus AD) (+ 20% AP) bonus magic",
+      "damage, and grants you 15 and 25% bonus movement speed for 1.5 seconds (30",
+      "second cooldown per champion).",
+      "Treat this like Night Harvester"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Treat this like Night Harvester"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Goliath",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "Much better on tanks than on carries"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Much better on tanks than on carries"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Goredrink",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "Very good on any fighter, underrated on other champ classes"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Very good on any fighter, underrated on other champ classes"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Guilty Pleasure",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "for 10 – 150 (based on level) (+ 1.5% maximum health) (5 second cooldown per cast",
+      "instance).",
+      "Is decent just on basis that other silver augment tank options suck",
+      "It’s mostly for champs with AoE cc"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Is decent just on basis that other silver augment tank options suck",
+          "It’s mostly for champs with AoE cc"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Hat on a Hat",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "item or hat you have in your inventory, reduced to 8 ability power and 4 bonus magic",
+      "resistance for hats obtained from Cappa Juice.",
+      "The following items will count as headwear/hats items for the Hat on a Hat",
+      "augment: Abyssal Mask, Bloodletter's Curse, Cosmic Drive, Edge of",
+      "Night, Executioner's Calling, Experimental Hexplate, Haunting Guise,",
+      "Hollow Radiance, Hubris, Jak'Sho, The Protean, Knight's Vow, Liandry's",
+      "Torment, Rabadon's Deathcap, Riftmaker, Shurelya's Battlesong and",
+      "Spectre's Cowl.",
+      "Only good on champs that build 4+ of the items on the list + if enemy team is magic damage heavy",
+      "Can be good if you can get to late game and can start stacking shards"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Only good on champs that build 4+ of the items on the list + if enemy team is magic damage heavy",
+          "Can be good if you can get to late game and can start stacking shards"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Heavy Hitter",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "maximum health.",
+      "Only good if you are playing around Heartsteel (which you should only build if the enemy team is low range)"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Only good if you are playing around Heartsteel (which you should only build if the enemy team is low range)"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Holy Fire",
+    "augment_type": "Gold",
+    "tier_global": "D",
+    "tips_flat": [
+      "enemy champion within 650 units over 0.32 seconds, applying a Burn upon arrival that",
+      "deals magic damage equal to 0.2% of the target's maximum health every second over",
+      "5 seconds, for a total of 1% (1.5-second cooldown)."
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Homeguard",
+    "augment_type": "Silver",
+    "tier_global": "S",
+    "tips_flat": [
+      "after taking damage from champions.",
+      "Really good on ranged champs especially poke champs",
+      "Has synergy with Don’t blink",
+      "Mechanics check",
+      "Countered by stuff like Thornmail"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good on ranged champs especially poke champs",
+          "Has synergy with Don’t blink",
+          "Mechanics check",
+          "Countered by stuff like Thornmail"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "I'm a Baby Kitty Where is Mama",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "few seconds, forming a tether between you and them (400 radius). While the tether",
+      "persists, you gain 75% bonus movement speed and 50% heal and shield power.",
+      "Additionally, gain 37.5% bonus movement speed while facing your bound ally within",
+      "1500 units.",
+      "Decent stats but rarely feels like it affects anything",
+      "Might actually be good on tanks"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Decent stats but rarely feels like it affects anything",
+          "Might actually be good on tanks"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Ice Cold",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "additional 100.",
+      "OP on champs that want Rylai’s or already have a lot of built in slows",
+      "Best used on champs with many smaller slows rather than a super strong one"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "OP on champs that want Rylai’s or already have a lot of built in slows",
+          "Best used on champs with many smaller slows rather than a super strong one"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Impassable",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "Underrated option on tanks that people should be more willing to click"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Underrated option on tanks that people should be more willing to click"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Infernal Conduit",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "(based on level) (+ 2.8% bonus AD) (+ 1.2% AP) bonus magic damage per second 」(1",
+      "second cooldown per cast instance). This Burn stacks infinitely and refreshes with each",
+      "application. Damage over time abilities can apply the effect only once every 2 seconds.",
+      "Additionally, all of your Burn effects reduce the cooldowns of all your basic abilities by",
+      "0.08 seconds for each tick of damage they deal to a target.",
+      "A bit of a hybrid between a damage amplifier and cast amplifier. It’s mostly good on champs where you were already going to build burn items.",
+      "Champs that have reliable AoE can also benefit lot, like Hecarim"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "A bit of a hybrid between a damage amplifier and cast amplifier. It’s mostly good on champs where you were already going to build burn items.",
+          "Champs that have reliable AoE can also benefit lot, like Hecarim"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Infernal Soul",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "Safe option on any damage dealer, really good for poke early"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Safe option on any damage dealer, really good for poke early"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "It's Critical",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "Really good early game, but can make itemization lategame awkward"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good early game, but can make itemization lategame awkward"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "It's Killing Time",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "Mark to all enemy champions (8 second cooldown). The mark stores 40% of all"
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Jeweled Gauntlet",
+    "augment_type": "Prismatic",
+    "tier_global": "S",
+    "tips_flat": [
+      "critical damage) damage. Additionally, gain 25% (+ 4.5% per 100 AP) critical strike",
+      "chance.",
+      "If both Jeweled Gauntlet and Vulnerability are equipped, only rolls the critical strike",
+      "chance of the augment that has the higher critical damage (or either if equal).",
+      "Best multiplier in the game"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Best multiplier in the game"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Keystone Conjurer",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "runes.",
+      "Underrated damage option, not just on poke champs"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Underrated damage option, not just on poke champs"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "King Me",
+    "augment_type": "Prismatic",
+    "tier_global": "D",
+    "tips_flat": [
+      "of which are located near their spawn, you gain one random Prismatic-tier augment and",
+      "the first eligible Legendary item in your inventory is upgraded to its Masterwork",
+      "variant. The gold value of all upgradeable stats on the item is increased by exactly",
+      "1000.",
+      "King Me prioritize upgrading the first Legendary item eligible for a Masterwork upgrade",
+      "based on its position in the inventory, detecting each slot until an eligible item is found.",
+      "This is just Transmute:Prismatic + 1000 gold worth of stats but gated behind a dumb condition"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "This is just Transmute:Prismatic + 1000 gold worth of stats but gated behind a dumb condition"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Laser Heal",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "Laser Heal: Channel for up to 2.5 seconds to project an energy beam in the",
+      "target direction, during which you can steer the beam in the direction of the cursor. The",
+      "beam heals allies within for 150 – 430 (based on level) (+ 70% AP) (+ 50% bonus",
+      "health) and deals 100 – 350 (based on level) (+ 50% AP) magic damage to enemies",
+      "within, both over the duration. Enemies hit are also slowed by 20%.",
+      "Slow and clunky to use, can have decent value in a slow game"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Slow and clunky to use, can have decent value in a slow game"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Leg Day",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "Just straight up OP, also lets you sell boots later or not need to buy them at all"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Just straight up OP, also lets you sell boots later or not need to buy them at all"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Light'em Up",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Lightning Strikes",
+    "augment_type": "Gold",
+    "tier_global": "D",
+    "tips_flat": [
+      "While at 3.5 attack speed or higher, your basic attacks deal 40 bonus magic damage"
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Mad Scientist",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "30% adaptive force, 20% bonus health, and 40% increased size or 70 ability haste,",
+      "40% bonus movement speed, and 40% reduced size.",
+      "Not too crazy, but it’s a very safe and reliable option for a carry. You rarely ever care which one you get"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Not too crazy, but it’s a very safe and reliable option for a carry. You rarely ever care which one you get"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Magic Missile",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "missiles at them that each deal true damage equal to 0.33% of the target's maximum",
+      "health, increased to up to 1% based on distance travelled. This effect can only trigger",
+      "once every 6 seconds from the same cast.",
+      "A bit overrated, because it’s only once per target per cast pretty much, but if you are able to freqently hit enemies with abilities it’s good"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "A bit overrated, because it’s only once per target per cast pretty much, but if you are able to freqently hit enemies with abilities it’s good"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Marksmage",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "Counts as an on-hit, which is kinda broken"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Counts as an on-hit, which is kinda broken"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Master of Duality",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "and damaging abilities once per cast instance grant 3 – 9 (based on level) bonus attack",
+      "damage, lasting for 5 seconds, with the duration of both refreshing on subsequent",
+      "attack or ability hits respectively, and stacking infinitely.",
+      "Really good if you can maintain stacks, but that’s very situational"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good if you can maintain stacks, but that’s very situational"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Mighty Shield",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "gaining a shield (5 second cooldown).",
+      "Strong early if your champ has a low cd shield",
+      "Really good if you have a reliable shielder on your team or build items with shields",
+      "Mountain Soul synergy"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Strong early if your champ has a low cd shield",
+          "Really good if you have a reliable shielder on your team or build items with shields",
+          "Mountain Soul synergy"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Mind to Matter",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "Really good on champs that build Lost chapter item + Tear item (can end up with 2500+ hp, which is insane for a silver augment)",
+      "You don’t have to build mana at all and it’s still pretty decent"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good on champs that build Lost chapter item + Tear item (can end up with 2500+ hp, which is insane for a silver augment)",
+          "You don’t have to build mana at all and it’s still pretty decent"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Minionmancer",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "health and size.",
+      "Out of the champs that get it, I think its only bait on Malz"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Out of the champs that get it, I think its only bait on Malz"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Mountain Soul",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "16% bonus AD) (+ 12% AP) (+ 12% bonus health).",
+      "Pretty good for letting you play aggressive early"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Pretty good for letting you play aggressive early"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Mystic Punch",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "20% of their remaining cooldown, with a minimum of 0.5 seconds.",
+      "Bugged with Belveth Q",
+      "Really strong on champs that apply on hits on abilities",
+      "OP with Ethereal Weapon"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Bugged with Belveth Q",
+          "Really strong on champs that apply on hits on abilities",
+          "OP with Ethereal Weapon"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Nightstalking",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "of damaging them renders you invisible for 1.5 seconds. Attacking or casting abilites",
+      "ends the stealth immediately.",
+      "Synergy with stealth bonuses, + Voltaic"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Synergy with stealth bonuses, + Voltaic"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "OK Boomerang",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "enemy, dealing 40 – 200 (based on level) (+ 30% bonus AD) (+ 20% AP)",
+      "adaptive damage to enemies hit (10 second cooldown).",
+      "It’s kind of the same as Keystone Conjurer but automated, and free poke is underrated"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s kind of the same as Keystone Conjurer but automated, and free poke is underrated"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Ocean Soul",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "value of 100.",
+      "Really good early, falls off a bit later"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good early, falls off a bit later"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Ominous Pact",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "them. In return, you gain 75 – 150 (based on level) ability power, 50% bonus movement",
+      "speed, and 0% – 20% (based on missing health) omnivamp.",
+      "Just treat this as Omvivamp + Movespeed",
+      "You kind want to avoid this on spammers, unless you are something like Ryze that can just drain tank"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Just treat this as Omvivamp + Movespeed",
+          "You kind want to avoid this on spammers, unless you are something like Ryze that can just drain tank"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Omni Soul",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "The fact that there’s no Dragonheart hurts this a lot",
+      "Idk if it’s tailored, but I always seem to get the best souls for my champ"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The fact that there’s no Dragonheart hurts this a lot",
+          "Idk if it’s tailored, but I always seem to get the best souls for my champ"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Omnisoul",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Orbital Laser",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "Orbital Laser.",
+      "Orbital Laser: Call upon an orbital laser to fire down on the target location after 2.5",
+      "seconds, immediately dealing true damage equal to the 25% of the target's maximum",
+      "health then 60 – 100 (based on level) magic damage every 0.5 seconds over 3 seconds",
+      "to enemies within a 550 radius, up to a total of 360 – 600 (based on level). Deals 70%",
+      "damage to minions.",
+      "This augment is only offered to up to 1 player on each team for a given game.",
+      "Doesn’t have ratios, so it seems underwhelming, but it can be very good early if your team has good cc"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Doesn’t have ratios, so it seems underwhelming, but it can be very good early if your team has good cc"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Outlaw's Grit",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "resistance for 15 seconds, stacking up to 5 times for a total of 60 bonus resistances,",
+      "and refreshing on subsequent triggers.",
+      "You need high-ish uptime on dashes because it’s a bit underpowered when not at max stacks"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "You need high-ish uptime on dashes because it’s a bit underpowered when not at max stacks"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Overflow",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "100 maximum mana) increased damage as well as self and outgoing healing and",
+      "shielding.",
+      "Really strong on enchanters because you still won’t have much mana issues",
+      "OP on Lost Chapter + ROA users",
+      "You need a good source of mana regen otherwise"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really strong on enchanters because you still won’t have much mana issues",
+          "OP on Lost Chapter + ROA users",
+          "You need a good source of mana regen otherwise"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Pandora's Box",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "random Prismatic ones.",
+      "Don’t take if you already have ideal augments or your build is affected by the augments you have taken",
+      "Don’t take on champs that are very inflexible",
+      "Much better the later you take it, assuming the above doesn’t apply"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Don’t take if you already have ideal augments or your build is affected by the augments you have taken",
+          "Don’t take on champs that are very inflexible",
+          "Much better the later you take it, assuming the above doesn’t apply"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Passive",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "of your death location, dealing 25% of target's maximum health true damage to",
+      "enemies within and fearing them for 1 second.",
+      "At worst you have a free blink+stealth and Dive Bomber with a fear, if you can use the backstab and active damage this is really good"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "At worst you have a free blink+stealth and Dive Bomber with a fear, if you can use the backstab and active damage this is really good"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Perserverance",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Perseverance",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "below 25% maximum health.",
+      "It just heals a lot over the course of the game, better than most other tank options"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It just heals a lot over the course of the game, better than most other tank options"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Poltergeist",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "Poltergeist: Casts both Barrier and Ghost on yourself, both lasting 5",
+      "seconds and with the former granting a shield for 110 – 440 (based on level) and",
+      "the latter granting 30% bonus movement speed.",
+      "Kinda weak, but as people have pointed out, it’s pretty much a low cd barrier"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Kinda weak, but as people have pointed out, it’s pretty much a low cd barrier"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Protein Shake",
+    "augment_type": "Prismatic",
+    "tier_global": "S",
+    "tips_flat": [
+      "resistance) heal and shield power.",
+      "Let’s you build tank as an enchanter, which is actually OP"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Let’s you build tank as an enchanter, which is actually OP"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Quantum Computing",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "Tactical Sweep, winding over 0.75 seconds to slash in a 650 radius around you. The",
+      "slash deals 200 – 350 (based on level) (+ 65% bonus AD) (+ 40% AP) physical damage",
+      "to enemies within the area (30 second cooldown). Enemies hit by the outer edge of the",
+      "circle take bonus physical damage equal to 10% (+ 2.5% per 100 bonus AD) (+ 1.6%",
+      "per 100 AP) (+ 0.1% per 100 bonus health) of their maximum health and are slowed",
+      "by 80% decaying over 2 seconds. Additionally, you are healed for 80% of the bonus"
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Quest: Sneakerhead",
+    "augment_type": "Prismatic",
+    "tier_global": "D",
+    "tips_flat": [
+      "complete that each involve performing specific tasks while equipped with a particular",
+      "Boots item, which is granted to you for free during its respective quest. Finish the",
+      "following quests, which are assigned to you in a random order:",
+      "● Quest - Berserker's Greaves: Basic attack 25 times.",
+      "● Quest - Boots of Swiftness: Run 300 steps.",
+      "● Quest - Ionian Boots of Lucidity: Cast 20 abilities.",
+      "● Quest - Mercury's Treads: Become afflicted by crowd control 5 times.",
+      "● Quest - Plated Steelcaps: Reduce a total of 200 damage with Plating.",
+      "● Quest - Sorcerer's Shoes: Deal a total of 1500 damage with abilities.",
+      "Reward: Upon completing all of the above quests, you receive Jarvan I's.",
+      "You cannot purchase any Boots items while equipped with this augment. If you already",
+      "have a Boots item, it is replaced by the Boots granted by this effect. Boots items gained",
+      "from this effect cannot be sold.",
+      "It’s decent, but it’s kind of a worse version of Spatula"
+    ],
+    "tips_structured": [
+      {
+        "heading": "following quests, which are assigned to you in a random order",
+        "bullets": [
+          "It’s decent, but it’s kind of a worse version of Spatula"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Quest: Steel Your Heart",
+    "augment_type": "Gold",
+    "tier_global": "S",
+    "tips_flat": [
+      "bonus health from Colossal Consumption.",
+      "Reward: Upon completing your Quest, increase the bonus health gained from",
+      "Heartsteel's Colossal Consumption by 200%.",
+      "The tech is to not click the augment until way later into the game because it super multiplies your stacks for some reason"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The tech is to not click the augment until way later into the game because it super multiplies your stacks for some reason"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Quest: Urf's Champion",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "Reward: Upon completing your Quest, you receive The Golden Spatula.",
+      "It’s just so much stats"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s just so much stats"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Quest: Wooglet's Witchcap",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "Quest: Obtain Rabadon's Deathcap and Zhonya's Hourglass.",
+      "Reward: Upon completing your Quest, convert the items you obtained for the quest into",
+      "Wooglet's Witchcap.",
+      "It’s OP because it combines two items you are probably going to get anyway, and gives you a free rod"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s OP because it combines two items you are probably going to get anyway, and gives you a free rod"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Rabble Rousing",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "maximum health).",
+      "Best used on champs that can just spam abilities like Cassiopeia, Ryze…"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Best used on champs that can just spam abilities like Cassiopeia, Ryze…"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "ReEnergize",
+    "augment_type": "Silver",
+    "tier_global": "S",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Recursion",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "Really good for most champs, people should take this more"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good for most champs, people should take this more"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Repulsor",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "enemies within a 500 radius by 750 units and slow them 90% for 1.5 seconds. (25",
+      "second cooldown or refresh on death)",
+      "Good safety option for backliners vs low range team comps",
+      "You can try to Insec enemies with it if you are a backline diver"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good safety option for backliners vs low range team comps",
+          "You can try to Insec enemies with it if you are a backline diver"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Restless Restoration",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "health) per 10 units travelled.",
+      "Perserverance but worse"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Perserverance but worse"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Scoped Weapons",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "Great option on auto attackers, but you have to consider whether the extra range would actually improve your ability to hit"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Great option on auto attackers, but you have to consider whether the extra range would actually improve your ability to hit"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Scopier Weapons",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "Range is OP, but with how good other gold augments can be, you are giving up a lot"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Range is OP, but with how good other gold augments can be, you are giving up a lot"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Scopiest Weapons",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "It’s good if you think you are going to have trouble hitting, or if you think the enemies won’t be able to play"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s good if you think you are going to have trouble hitting, or if you think the enemies won’t be able to play"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Searing Dawn",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "Sunlight: Your abilities mark enemies, causing them to take 40 – 200 (based on level)",
+      "(+ 3% of target's maximum health) bonus magic damage from your ally's next basic"
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Self Destruct",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "damage equal to 20% of the target's maximum health to enemies within 350 units and",
+      "knocks them up for 0.75 seconds.",
+      "Probably really good with Flashbang",
+      "You probably have to commit to inting for engage, so you need a team that can follow up and probably mobility",
+      "Works when Reksai uses her tunnels"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Probably really good with Flashbang",
+          "You probably have to commit to inting for engage, so you need a team that can follow up and probably mobility",
+          "Works when Reksai uses her tunnels"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Shadow Runner",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "movement speed for 2 seconds.",
+      "Good for chasing or kiting",
+      "Works with the portals/cannon"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good for chasing or kiting",
+          "Works with the portals/cannon"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Shrink Ray",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "refreshing with each hit. Their size is also reduced significantly for the duration.",
+      "You need to be able to hit different targets consistently",
+      "I’m not sure how it works with Runaan’s"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "You need to be able to hit different targets consistently",
+          "I’m not sure how it works with Runaan’s"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Skilled Sniper",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "units away from them at the time of the hit reduces its current cooldown by 80% of its",
+      "total cooldown, modified to 65% for damage over time abilities.",
+      "Good vs ranged matchups, but overrated vs enemies that actually want to walk at you"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good vs ranged matchups, but overrated vs enemies that actually want to walk at you"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Slow Cooker",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [
+      "enemies within 500 units for 5 seconds that deals magic damage equal to「 0.3% of your",
+      "maximum health per second. 」This Burn stacks infinitely and refreshes with each",
+      "application.",
+      "Really good into melee enemy team"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good into melee enemy team"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Slow and Steady",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "your attack rate no longer benefits from any source of attack speed bonuses.",
+      "Additionally, gain 25 AD and convert every 1% bonus attack speed into 0.75 bonus",
+      "attack damage .",
+      "The conversion isnt great, so it’s only worth if you don’t plan on autoing",
+      "Broken with Jayce attackspeed from ranged W",
+      "Zeri/Urgot isn’t affect by the attackspeed debuff, but still gets the AD",
+      "Garen also isn’t really negatively affected"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The conversion isnt great, so it’s only worth if you don’t plan on autoing",
+          "Broken with Jayce attackspeed from ranged W",
+          "Zeri/Urgot isn’t affect by the attackspeed debuff, but still gets the AD",
+          "Garen also isn’t really negatively affected"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Snowball Roulette",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "snowball hits an enemy target. Cast a random beneficial Summoner Spell on yourself",
+      "when you take your snowball dash",
+      "Gain 100 haste on snowball",
+      "If you do not already have Mark, the summoner spell in the second slot is replaced",
+      "with Mark.",
+      "It’s still underwhelming, but it’s not terrible anymore"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s still underwhelming, but it’s not terrible anymore"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Snowball Upgrade",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "where the target was hit for 2 seconds, granting sight of the area and dealing 100 (+",
+      "200% bonus AD) (+ 120% AP) magic damage to enemies within over the duration, as",
+      "well as slowing them by 40% (+ 6% per 100 AP). Additionally, your Mark's",
+      "cooldown is reduced equivalent to 100 ability haste.",
+      "It’s an AoE slow which is decent for harass, and can do a lot of damage"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s an AoE slow which is decent for harass, and can do a lot of damage"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Sonic Boom",
+    "augment_type": "Silver",
+    "tier_global": "D",
+    "tips_flat": [
+      "on level) true damage to enemies within 450 units of them and slows targets by",
+      "30% for 2 seconds (2 second cooldown).",
+      "Used mostly for the slow, is generally underwhelming"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Used mostly for the slow, is generally underwhelming"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Soul Siphon",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "critical strike chance.",
+      "Let's you build 1 less crit item and gives you early lifesteal",
+      "Kind of wasted on non-autoattackers because it is lifesteal, not omnivamp"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Let's you build 1 less crit item and gives you early lifesteal",
+          "Kind of wasted on non-autoattackers because it is lifesteal, not omnivamp"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Spin To Win",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "ability haste.",
+      "Only good if the spin is the champ’s main damage tool",
+      "Good users: Garen, Renekton, Katarina, Samira, Lillia"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Only good if the spin is the champ’s main damage tool",
+          "Good users: Garen, Renekton, Katarina, Samira, Lillia"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Spin to Win",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Spiritual Purification",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "slain champion to explode in a 500 unit radius, dealing adaptive damage to",
+      "enemies within equal to 15% of their current health and leaving behind a zone for 1.5",
+      "seconds that slows enemies within by 60%.",
+      "You have to be alive for it to proc, so it’s better on backliners with AoE",
+      "Decent against low range teams"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "You have to be alive for it to proc, so it’s better on backliners with AoE",
+          "Decent against low range teams"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Stackasaurus Rex",
+    "augment_type": "Silver",
+    "tier_global": "S",
+    "tips_flat": [
+      "by 75%.",
+      "Really OP for a silver, considering that stacks are way easier to get in ARAM than in Arena"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really OP for a silver, considering that stacks are way easier to get in ARAM than in Arena"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Swift and Safe",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "seconds and absorbs 65 – 290 (based on level) (+ 65% bonus AD) (+ 26% AP) damage",
+      "(5 second cooldown).",
+      "Works with Mark (snowball), and thus is just broken on any champ who has another dash"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Works with Mark (snowball), and thus is just broken on any champ who has another dash"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Symphony of War",
+    "augment_type": "Prismatic",
+    "tier_global": "C",
+    "tips_flat": [
+      "It’s only good if your champ can actually use both well, so mostly melees"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s only good if your champ can actually use both well, so mostly melees"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Tank Engine",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "increase your maximum health and size by 5%. Lose 65% of stacks on death.",
+      "It’s hard to maintain stacks, so this often isn’t providing that much, but is still pretty good on health scalers"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s hard to maintain stacks, so this often isn’t providing that much, but is still pretty good on health scalers"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Tank It Or Leave It",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "up to 50%. Additionally, gain 25% critical strike chance.",
+      "Critical Defend Chance: Grants you a chance to reduce an instance of damage taken by",
+      "20%.",
+      "Really OP with Lifesteal, or if you are a tank with Atma’s"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really OP with Lifesteal, or if you are a tank with Atma’s"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Tank it or Leave it",
+    "augment_type": "Silver",
+    "tier_global": "S",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Tap Dancer",
+    "augment_type": "Prismatic",
+    "tier_global": "S",
+    "tips_flat": [
+      "infinitely. Additionally, gain bonus attack speed equal to 1% movement speed.",
+      "APM check, but it’s good into immobile teams",
+      "Now works on minions/monsters"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "APM check, but it’s good into immobile teams",
+          "Now works on minions/monsters"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "The Brutalizer",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "Better Blunt force early game, worse lategame"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Better Blunt force early game, worse lategame"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "The Burn's per",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "based on the relative value of the triggering heal or shield against the maximum health",
+      "of the ally recipient, for a total maximum damage of 4% of the target's maximum health.",
+      "Undertuned for enchanters, since they don’t have the cooldowns to stack it",
+      "Best use case is on champs with a lot of lifesteal, but it’s still below average",
+      "Some tanks that have some spammable heal can do okay with this like Zac"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Undertuned for enchanters, since they don’t have the cooldowns to stack it",
+          "Best use case is on champs with a lot of lifesteal, but it’s still below average",
+          "Some tanks that have some spammable heal can do okay with this like Zac"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Thread the Needle",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "Decent but doesn’t remove the need to still get a pen item"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Decent but doesn’t remove the need to still get a pen item"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Tormentor",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "Burn for 5 seconds, dealing magic damage equal to「 0.8% of the target's maximum",
+      "health per second 」(5 second cooldown per cast instance). This Burn stacks infinitely",
+      "and refreshes with each application.",
+      "Not really worth it unless you have a burn synergy and the enemy team is very tanky"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Not really worth it unless you have a burn synergy and the enemy team is very tanky"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Transmute: Chaos",
+    "augment_type": "Prismatic",
+    "tier_global": "D",
+    "tips_flat": [
+      "offerings in your current assortment. You have a 30% chance to gain a Silver-tier",
+      "augment and a 70% chance to receive a Gold-tier augment.",
+      "When I take it I get 2 silvers, when the enemy takes it they transmute into 2 prismatics…"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "When I take it I get 2 silvers, when the enemy takes it they transmute into 2 prismatics…"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Transmute: Gold",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "in your current assortment.",
+      "Only take if your other options suck"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Only take if your other options suck"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Transmute: Prismatic",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Transmute:Prismatic",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "offerings in your current assortment.",
+      "Too much can go wrong here, with how niche a lot of Prismatics are"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Too much can go wrong here, with how niche a lot of Prismatics are"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Trueshot Prodigy",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "the time of the hit, cast Ezreal's Trueshot Barrage in their direction. The barrage",
+      "deals 100 – 350 (based on level) (+ 80% bonus AD) (+ 60% AP) magic damage to",
+      "enemies it passes through (15 second cooldown).",
+      "This augment is only offered to up to 1 player on each team for a given game.",
+      "Assuming you can proc it, it’s a really good poke tool, especially since there’s more targets you can hit",
+      "Trigger distance is based on the moment your spell/attack does damage, which means that you can move backwards a bit to help proc it with slower projectiles"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Assuming you can proc it, it’s a really good poke tool, especially since there’s more targets you can hit",
+          "Trigger distance is based on the moment your spell/attack does damage, which means that you can move backwards a bit to help proc it with slower projectiles"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Twice Thrice",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Typhoon",
+    "augment_type": "Silver",
+    "tier_global": "S",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Ultimate Awakening",
+    "augment_type": "Prismatic",
+    "tier_global": "S",
+    "tips_flat": [
+      "basic abilities and grants you 300 basic ability haste for 15 seconds (20 second",
+      "cooldown). Additionally, gain 30 ultimate haste.",
+      "Really OP on any champ that either has a low cd ult, or has one that they can use liberally and has strong abilities they can use. Ex: Karma, Corki, Kassadin, transformers(Jayce, Nidalee, Elise…)"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really OP on any champ that either has a low cd ult, or has one that they can use liberally and has strong abilities they can use. Ex: Karma, Corki, Kassadin, transformers(Jayce, Nidalee, Elise…)"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Ultimate Revolution",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "after its effect starts or has elapsed (75 second cooldown, reset upon death).",
+      "There are a lot of annoying ults that can abuse this like Karthus, Tryndamere, Malphite…"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "There are a lot of annoying ults that can abuse this like Karthus, Tryndamere, Malphite…"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Ultimate Unstoppable",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [
+      "immunity for 3 seconds (8 second cooldown).",
+      "Take if cc can ruin your ult",
+      "Really strong on ult spammers (Karma, Corki, Anivia…)"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Take if cc can ruin your ult",
+          "Really strong on ult spammers (Karma, Corki, Anivia…)"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Collector",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "execution threshold increased by 0.50% for each successful execution and Taxes to",
+      "generate a further 25 (total 50) from kills. Additionally, gain 250.",
+      "After the buff, it does snowball kinda well"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "After the buff, it does snowball kinda well"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Cutlass",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "cooldown of Soul Anchor to 15 seconds and empowering its active to grant you 25%",
+      "increased damage while it is in effect.",
+      "You need enemy targets that you can constantly harass, it’s hard to play against heavy cc",
+      "Actually pretty good if you are comfortable using this item"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "You need enemy targets that you can constantly harass, it’s hard to play against heavy cc",
+          "Actually pretty good if you are comfortable using this item"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Hubris",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "2.5% (+ 0.5% per stack) maximum health upon being triggered and grant you 10 (+ 5",
+      "per stack) bonus movement speed for its duration. Additionally, gain 250.",
+      "The biggest benefit is the stacking movespeed"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "The biggest benefit is the stacking movespeed"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Immolate",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "empowering Immolate to additionally generate 10 per tick for each target afflicted by",
+      "its effect.",
+      "Can be okay if both teams have a lot of melees so that you can just sit there and farm enemies safely"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Can be okay if both teams have a lot of melees so that you can just sit there and farm enemies safely"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Infinity Edge",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "of the Divine's Excoriate. Additionally, gain 500 and 25% critical strike chance.",
+      "Excoriate: Gain a random amount of bonus critical strike damage that scales up to",
+      "50% of your critical strike chance, with the value of this amount changing every 0.25",
+      "seconds.",
+      "Can basically treat this as 25% crit and 25% more crit damage after completing IE",
+      "Can become exodia with stuff like Jeweled Gauntlet"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Can basically treat this as 25% crit and 25% more crit damage after completing IE",
+          "Can become exodia with stuff like Jeweled Gauntlet"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Mikael's Blessing",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "of Purify to 45 seconds and empowering its active to instead affect you and all nearby",
+      "allied champions, cleansing all targets of crowd control (excluding",
+      "Airborne), healing them for 150 – 450 (based on level) (+ 50% AP), and granting",
+      "them 65% tenacity for 3 seconds. Just gives you Mikael’s Blessing, or if you already",
+      "have it gain 2300.",
+      "It’s basically a Milio ult, which can actually be pretty good. The 1000 starting gold is also underrated because you can just buy the Mikael’s at the start of the game"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s basically a Milio ult, which can actually be pretty good. The 1000 starting gold is also underrated because you can just buy the Mikael’s at the start of the game"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Sheen",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [
+      "deal additional bonus physical damage equal to 4% of the target's maximum health",
+      "and heal you for 3.5% of your maximum health). Additionally, gain 250.",
+      "Good vs tanks, but is pretty nerfed compared to Divine Sunderer"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good vs tanks, but is pretty nerfed compared to Divine Sunderer"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade Zhonya's",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "Zhonya's Hourglass, empowering Stasis to allow you to move during its active",
+      "effect. Additionally, the cooldown of Zhonya's Hourglass' Stasis is reduced to 90",
+      "seconds.",
+      "Good against divers or after getting caught",
+      "Also good with some types of channels like Rumble Q, Kennen R…"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good against divers or after getting caught",
+          "Also good with some types of channels like Rumble Q, Kennen R…"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Upgrade: Collector",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Upgrade: Cutlass",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Upgrade: Hubris",
+    "augment_type": "Gold",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Upgrade: Immolate",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Upgrade: Infinity Edge",
+    "augment_type": "Gold",
+    "tier_global": "S",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Upgrade: Mikael's Blessing",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Upgrade: Zhonyas",
+    "augment_type": "Silver",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "Vampirism",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "set to 0. Gain 30% omnivamp.",
+      "Your champion needs to be able to output constant damage, but it’s OP if you can"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Your champion needs to be able to output constant damage, but it’s OP if you can"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Veil of Warding",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "second cooldown, timer does not restart from champion damage taken).",
+      "Really good in pretty much the same situations you would want a Banshees/Edge of Night, ie: to dodge annoying pick tools",
+      "Cooldown works in combat, so it can be really clutch sometimes"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really good in pretty much the same situations you would want a Banshees/Edge of Night, ie: to dodge annoying pick tools",
+          "Cooldown works in combat, so it can be really clutch sometimes"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Vulnerability",
+    "augment_type": "Gold",
+    "tier_global": "A",
+    "tips_flat": [
+      "critically strike for (145% + bonus critical damage) damage. Additionally, gain 25%",
+      "critical strike chance.",
+      "Broken on DoT champs, double broken if they have burn items",
+      "Decent in all other cases where you have multiple sources of item damage"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Broken on DoT champs, double broken if they have burn items",
+          "Decent in all other cases where you have multiple sources of item damage"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Wind Beneath Blade",
+    "augment_type": "Silver",
+    "tier_global": "B",
+    "tips_flat": [
+      "penetration, and 5 bonus movement speed per 10% armor penetration or magic",
+      "penetration.",
+      "Scaling version of Leg Day that’s only good on AD assassins"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Scaling version of Leg Day that’s only good on AD assassins"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Windspeaker's Blessing",
+    "augment_type": "Prismatic",
+    "tier_global": "B",
+    "tips_flat": [
+      "the target 30 – 60 (based on level) bonus armor and bonus magic resistance for 3",
+      "seconds.",
+      "It’s pretty much another heal/shield multiplier that’s better vs burst"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s pretty much another heal/shield multiplier that’s better vs burst"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Witchful Thinking",
+    "augment_type": "Silver",
+    "tier_global": "C",
+    "tips_flat": [
+      "Solid, but scales kinda slow and is more of a safety option"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Solid, but scales kinda slow and is more of a safety option"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "With Haste",
+    "augment_type": "Gold",
+    "tier_global": "C",
+    "tips_flat": [
+      "You have to play around it, but you can get A LOT of movespeed, and can sell boots later. However, this is heavy investment for just movespeed"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "You have to play around it, but you can get A LOT of movespeed, and can sell boots later. However, this is heavy investment for just movespeed"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "Wooglet's Witchcap",
+    "augment_type": "Prismatic",
+    "tier_global": "A",
+    "tips_flat": [],
+    "tips_structured": []
+  },
+  {
+    "name_en": "additionally on",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "(+ 15% bonus AD) physical damage, for a total of 50 – 262.5 (based on level) (+ 75%",
+      "bonus AD) physical damage (5 second cooldown per direction). Bolts' damage is",
+      "increased by 0% – 50% (based on distance travelled). Each bolt can critically strike"
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "and applies on",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "This does a lot of damage and is really good with RFC for harass",
+      "For the most part this is a ranged harass tool, but mobile melees can be disgusting with it"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "This does a lot of damage and is really good with RFC for harass",
+          "For the most part this is a ranged harass tool, but mobile melees can be disgusting with it"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "attack or ability hit against them (0.75",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "Really OP on champions that have DoTs/AoE application + an ally that can proc it frequently: Brand, Malzahar, Swain, Amumu, Anivia, Annie, Cassiopeia, Heimerdinger, Karthus, Maokai, Miss Fortune, Morgana, Nasus, Singed, Twitch?, Zyra"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Really OP on champions that have DoTs/AoE application + an ally that can proc it frequently: Brand, Malzahar, Swain, Amumu, Anivia, Annie, Cassiopeia, Heimerdinger, Karthus, Maokai, Miss Fortune, Morgana, Nasus, Singed, Twitch?, Zyra"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "basic attack consumes all stacks to apply on",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "effectiveness.",
+      "Kind of overrated, but obviously has synergy with on-hit builds"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Kind of overrated, but obviously has synergy with on-hit builds"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "damage and applies on",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "Good if there’s multiple melees on enemy team",
+      "Unlike Runaan’s, these bolts’ range seems to be decently further than your auto range",
+      "Best used if you have a good effect to apply(Senna/Ashe passive…), not so much for damage"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good if there’s multiple melees on enemy team",
+          "Unlike Runaan’s, these bolts’ range seems to be decently further than your auto range",
+          "Best used if you have a good effect to apply(Senna/Ashe passive…), not so much for damage"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "non",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "200 – 350 (based on level) (+ 100% bonus AD) (+ 60% AP) magic damage to all",
+      "nearby enemies, knock them up for 0.75 seconds, and slow them by 20% for 2",
+      "seconds. Additionally, your Mark's cooldown is reduced equivalent to 100 ability",
+      "haste.",
+      "If you do not already have Mark, the summoner spell in the second slot is replaced"
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "on",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "It’s really hard to hit 3.5 AS, and the other bonus isn’t that much"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "It’s really hard to hit 3.5 AS, and the other bonus isn’t that much"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "post",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "Good into melee teams, but hard to reliably play around"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "Good into melee teams, but hard to reliably play around"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "pre",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "after 5 seconds to deal physical damage equal to the damage stored against them.",
+      "If your champ’s damage isn’t frontloaded"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "If your champ’s damage isn’t frontloaded"
+        ]
+      }
+    ]
+  },
+  {
+    "name_en": "target location within 400 units after a 0.125",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "in stealth deals 100 (+ 150% bonus AD) (+ 55% AP) bonus physical damage,",
+      "increased to「 155 (+ 232.5% bonus AD) (+ 85.25% AP) bonus physical damage 」if",
+      "Backstab was applied (45 second cooldown)."
+    ],
+    "tips_structured": []
+  },
+  {
+    "name_en": "with Mark. Non",
+    "augment_type": null,
+    "tier_global": null,
+    "tips_flat": [
+      "This is an insane engage/harass/setup tool"
+    ],
+    "tips_structured": [
+      {
+        "heading": null,
+        "bullets": [
+          "This is an insane engage/harass/setup tool"
+        ]
+      }
+    ]
+  }
+]

@@ -1,0 +1,72 @@
+name: Build and Release LoL Overlay
+
+# 언제 실행할지 설정 (v1.0.0 같은 태그를 붙여서 푸시하면 실행됨)
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      # 1. 내 코드 가져오기
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # ==================================================
+      # 🐍 백엔드 빌드 (Python)
+      # ==================================================
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10' # 개발 환경과 비슷한 버전 사용
+          architecture: 'x64'
+
+      - name: Install Python Dependencies
+        working-directory: ./backend
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+          # requirements.txt가 있다면 설치, 없다면 필요한 패키지 직접 설치
+          # (사용자님 환경에 맞춰 필요한 패키지들을 나열했습니다)
+          pip install flask flask-cors lcu-driver pywin32 mss opencv-python pytesseract requests numpy
+
+      - name: Build Backend (PyInstaller)
+        working-directory: ./backend
+        # 사용자님이 성공했던 그 명령어 그대로 사용 (+ Tesseract 경로 주의)
+        # 주의: GitHub 저장소에 'backend/Tesseract-OCR' 폴더가 올라가 있어야 합니다!
+        run: |
+          pyinstaller --noconfirm --onedir --console --name "lol_api" --exclude-module pandas --add-data "augments_global_ko.json;." --add-data "augment_mapping_full.txt;." --add-data "game_data.db;." --add-data "Tesseract-OCR;Tesseract-OCR" app.py
+
+      # ==================================================
+      # ⚛️ 프론트엔드 빌드 (Node.js + Electron)
+      # ==================================================
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: Install Frontend Dependencies
+        working-directory: ./frontend
+        run: npm install
+
+      - name: Build Frontend & Package (Electron Builder)
+        working-directory: ./frontend
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run dist
+
+      # ==================================================
+      # 🚀 릴리즈 업로드 (GitHub Releases에 파일 올리기)
+      # ==================================================
+      - name: Release to GitHub
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: |
+            frontend/dist/*.exe

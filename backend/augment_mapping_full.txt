@@ -1,0 +1,153 @@
+처형자 : Executioner
+전환: 프리즘 : Transmute: Prismatic
+마법 미사일 : Magic Missile
+흡혈병 : Vampirism
+상급 조준경 부착 : Scopier Weapons
+거인 학살자 : Giant Slayer
+바늘에 실 끼우기 : Thread the Needle
+처형 시간 : It's Killing Time
+탱크 엔진 : Tank Engine
+보석 건틀릿 : Jeweled Gauntlet
+사악한 정신 : Witchful Thinking
+되풀이 : Recursion
+신난다! : Get Excited!
+선혈포식 : Goredrink
+유레카 : Eureka
+능수능란 : Deft
+빵과 버터 : Bread And Butter
+영혼의 정화 : Spiritual Purification
+선동 : Rabble Rousing
+지옥의 전도체 : Infernal Conduit
+벼락 : Lightning Strikes
+조준경 부착 : Scoped Weapons
+천상의 신체 : Celestial Body
+거인 : Goliath
+퀘스트: 강철 같은 심장 : Quest: Steel Your Heart
+인내심 : Perseverance
+노련한 저격수 : Skilled Sniper
+시작부터 끝까지 : From Beginning To End
+전환: 골드 : Transmute: Gold
+부정 행위 : Cheating
+치명적 리듬 : Critical Rhythm
+두 배 세 배 : Twice Thrice
+최상급 조준경 부착 : Scopiest Weapons
+지옥불 영혼 : Infernal Soul
+양손잡이 : Dual Wield
+적응형 능력치 : ADAPt
+빵과 치즈 : Bread and Cheese
+모자 겹쳐쓰기 : Hat on a Hat
+마법 명사수 : Marksmage
+핵심 룬 요술사 : Keystone Conjurer
+차가운 냉기 : Ice Cold
+화염 낙인 : Firebrand
+범람 : Overflow
+야수화 : The Brutalizer
+치명적 치유 : Critical Healing
+빵과 잼 : Bread And Jam
+영혼 흡수 : Soul Siphon
+탭 댄서 : Tap Dancer
+강타자 : Heavy Hitter
+그림자 질주 : Shadow Runner
+도주 계획 : Escape Plan
+민병대 : Homeguard
+치명적인 공격 : It's Critical
+최종 형태 : Final Form
+태풍 : Typhoon
+천천히, 꾸준히 : Slow And Steady
+찜솥 : Slow Cooker
+하체 운동의 날 : Leg Day
+전장의 교향곡 : Symphony of War
+정신 변환 : Mind to Matter
+전환: 혼돈 : Transmute: Chaos
+전술적 대비 : Big Brain
+넘을 수 없는 벽 : Impassable
+퀘스트: 우글렛의 마녀 모자 : Quest: Wooglet's Witchcap
+취약 : Vulnerability
+오만 업그레이드 : Upgrade Hubris
+빠르고 안전하게 : Swift and Safe
+무한의 대검 업그레이드 : Upgrade Infinity Edge
+광대 대학 : Clown College
+끊임없는 회복 : Restless Restoration
+무법자의 투지 : Outlaw's Grit
+육중한 힘 : Blunt Force
+잔혹 행위 : Cruelty
+부식 : Erosion
+쌍버프 : Buff Buddies
+빛의 인도자 결의 : Dawnbringer's Resolve
+바다의 영혼 : Ocean Soul
+악마의 춤 : Demon's Dance
+불을 밝혀 : Light 'em Up!
+전능의 영혼 : Omni Soul
+미친 과학자 : Mad Scientist
+밤의 추적 : Nightstalking
+신비한 주먹 : Mystic Punch
+환영 무기 : Ethereal Weapon
+감쇠 광선 : Shrink Ray
+궁극의 각성 : Ultimate Awakening
+궁극기 대변혁 : Ultimate Revolution
+징수의 총 업그레이드 : Upgrade Collector
+죄책감의 쾌락 : Guilty Pleasure
+응급처치 키트 : First-Aid Kit
+단호함 : Adamant
+돌진 : Dashing
+탄환 세례 : Fan The Hammer
+우당탕탕 : Slap Around
+속행 : With Haste
+존야 업그레이드 : Upgrade Zhonya's
+유리 대포 : Glass Cannon
+마법사 (물리) : escAPADe
+서리 망령 : Frost Wraith
+거석상의 용기 : Courage of the Colossus
+신성한 중재 : Divine Intervention
+최첨단 발명가 : Apex Inventor
+신성한 불길 : Holy Fire
+궁극의 저지 불가 : Ultimate Unstoppable
+눈덩이 업그레이드 : Snowball Upgrade
+타오르는 새벽 : Searing Dawn
+요정 마법 : Fey Magic
+난공불락 : Cant Touch This
+고문자 : Tormentor
+프로틴 음료 : Protein Shake
+자폭 : Self Destruct
+확률적 방어 : Tank It Or Leave It
+폭격기 : Dive Bomber
+감시의 장막 : Veil of Warding
+케르베로스 : Cerberus
+너만을 위해 : All For You
+양자 연산 : Quantum Computing
+깊은 상처 : Gash
+대지의 영혼 : Mountain Soul
+정조준 일격 신동 : Trueshot Prodigy
+눈덩이 룰렛 : Snowball Roulette
+데굴데굴 눈덩이! : Biggest Snowball Ever
+광휘의 검 업그레이드 : Upgrade Sheen
+불길한 서약 : Ominous Pact
+음속 폭발 : Sonic Boom
+결투의 대가 : Master of Duality
+나는 왕이다 : King Me
+칼날 아래 바람 : Wind Beneath Blade
+부메랑 투척 : Ok Boomerang
+기본으로 돌아가기 : Back To Basics
+검을 뽑아라 : Draw Your Sword
+퀘스트: 우르프의 챔피언 : Quest: Urf's Champion
+대지의 각성 : Earthwake
+죽음의 순환 : Circle of Death
+속전속결 : Don't Blink
+강력한 방패 : Mighty Shield
+불사르기 업그레이드 : Upgrade Immolate
+반발 : Repulsor
+점멸탄 : Flashbang
+골드 강탈 : Goldrend
+바람전달자의 축복 : Windspeaker's Blessing
+승리를 위한 회전 : Spin To Win
+재충전 : ReEnergize
+점멸 난사 : Flashy
+소환술사 : Minionmancer
+미카엘의 축복 업그레이드 : Upgrade Mikael's Blessing
+엄마 찾는 아기 고양이 : I'm a Baby Kitty Where is Mama
+다단 중첩 : Stackosaurus Rex
+해적검 업그레이드 : Upgrade Cutlass
+신발 수집가 : Sneakerhead
+물어 와 : Fetch
+판도라의 상자 : Pandora's Box
+검무 : Blade Waltz
