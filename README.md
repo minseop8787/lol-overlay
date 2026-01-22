@@ -1,5 +1,5 @@
-## Legal Disclaimer
+## Data Sources & Credits
 
-LoL Overlay Pro is not endorsed by Riot Games and does not reflect the views or opinions of Riot Games or anyone officially involved in producing or managing Riot Games properties. Riot Games and all associated properties are trademarks or registered trademarks of Riot Games, Inc.
-
-This project was created under Riot Games' "Legal Jibber Jabber" policy using assets owned by Riot Games.
+- **Game Data:** Real-time game data and assets are retrieved via the Riot Games API and Data Dragon.
+- **Build Statistics:** Champion builds and tier lists are based on statistical analysis of high-ELO ARAM matches.
+- **Image Recognition:** Powered by Tesseract OCR for automated augment detection.
