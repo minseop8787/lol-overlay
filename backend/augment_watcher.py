@@ -238,16 +238,45 @@ class AugmentWatcher:
                 current_rois = get_rois_by_width(w)
 
                 # 화면 변화 체크 (ROI만)
-                has_changed = is_screen_changed(self.last_img, full_img, rois=current_rois)
+                # 🔥 [수정] 임계값 1000 -> 200으로 대폭 낮춤 (작은 글씨 변화 감지)
+                has_changed = is_screen_changed(self.last_img, full_img, rois=current_rois, threshold=200)
                 
                 # 현재 화면 저장 (다음 비교를 위해)
                 self.last_img = full_img 
                 
-                if has_changed:
-                    # 🔥 변화가 있을 때만 OCR 실행
-                    # print("[Watcher] Screen changed in ROI, running OCR...")
+                # 🔥 [수정] 안전장치: 화면이 안 바뀌더라도, 결과가 없으면 가끔 한 번씩 재검사 (1초마다)
+                # 이는 초기 진입 시 이미 증강이 떠있는 상태라 변화 감지가 안되는 경우를 방지함
+                force_check = False
+                if not self.cached_titles and (time.time() - self.last_sent_time > 1.0):
+                     # 단, last_sent_time은 전송 시간이라 적절치 않음. 루프 내 별도 타이머 필요.
+                     # 여기선 간단히 5번 루프(약 1초)마다 강제 검사하도록 로직 변경 필요하지만,
+                     # 가장 확실한 건 "캐시가 비어있으면" 변화 여부 상관없이 1초에 한번씩 훑는 것.
+                     pass
+
+                # 로직 개선: 
+                # 1. 변화 감지됨 -> 즉시 OCR
+                # 2. 변화 없음 & 캐시 있음 -> 캐시 유지 (성공)
+                # 3. 변화 없음 & 캐시 없음 -> 1초마다 강제 재확인 (혹시 놓쳤을까봐)
+                
+                current_time = time.time()
+                
+                # 마지막 강제 체크 시간 (루프 밖 __init__에 있어야 하지만 여기서 임시 처리 위해 전역 변수처럼 사용 불가)
+                # 따라서 로직을 단순화:
+                # "변화가 있거나" OR ("캐시가 비었고" AND "임의 확률로")
+                
+                # 5번에 1번 꼴로(약 1초) 강제 리프레시
+                should_force_refresh = (not self.cached_titles) and (int(current_time * 10) % 10 == 0)
+
+                if has_changed or should_force_refresh:
+                    # if should_force_refresh: print("[Watcher] Failsafe checking...")
                     titles = extract_three_titles(full_img)
-                    self.cached_titles = titles # 결과 저장(캐싱)
+                    
+                    # 🔥 [중요] 읽힌 게 있을 때만 캐시를 갱신해야 함?
+                    # 아님. 읽힌 게 없으면 없는 대로 갱신해야 증강 선택 후 사라짐을 감지함.
+                    # 하지만 "강제 리프레시" 중에는 화면이 안 바뀌었으므로, 
+                    # 기존에 못 읽던 걸 갑자기 읽을 확률은 낮지만(Tesseract 노이즈), 
+                    # 혹시나 초기 진입 실패를 복구할 수 있음.
+                    self.cached_titles = titles 
                 else:
                     titles = self.cached_titles
 
