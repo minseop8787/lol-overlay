@@ -23,26 +23,34 @@ if os.path.exists(TEMPLATE_PATH):
 else:
     print(f"[Warning] 상점 템플릿 없음: {TEMPLATE_PATH}")
 
-def is_shop_open():
+def is_shop_open(sct=None):
     if template is None: return False
 
-    with mss.mss() as sct:
-        # 모니터 해상도에 따라 전체 화면 캡처
+    if sct:
+        # 이미터 인스턴스 사용
         monitor = sct.monitors[1]
         screen_shot = np.array(sct.grab(monitor))
         screen_bgr = cv2.cvtColor(screen_shot, cv2.COLOR_BGRA2BGR)
+        return _check_template(screen_bgr)
+    else:
+        # 기존 방식 (매번 생성)
+        with mss.mss() as sct_new:
+            monitor = sct_new.monitors[1]
+            screen_shot = np.array(sct_new.grab(monitor))
+            screen_bgr = cv2.cvtColor(screen_shot, cv2.COLOR_BGRA2BGR)
+            return _check_template(screen_bgr)
 
-        # 템플릿 매칭
-        res = cv2.matchTemplate(screen_bgr, template, cv2.TM_CCOEFF_NORMED)
+def _check_template(screen_bgr):
+    # 템플릿 매칭
+    res = cv2.matchTemplate(screen_bgr, template, cv2.TM_CCOEFF_NORMED)
 
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        print(f"[ShopDetector] 일치율: {max_val:.2f}") # 이 로그를 확인하세요!
-        
-        # 🔥 [수정] 이미지가 선명하므로 기준을 0.9로 상향 조정 (오인식 차단)
-        threshold = 0.9
-        
-        loc = np.where(res >= threshold)
-        if len(loc[0]) > 0:
-            return True
-            
+    min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+    # print(f"[ShopDetector] 일치율: {max_val:.2f}") 
+    
+    # 🔥 [수정] 이미지가 선명하므로 기준을 0.9로 상향 조정 (오인식 차단)
+    threshold = 0.9
+    
+    loc = np.where(res >= threshold)
+    if len(loc[0]) > 0:
+        return True
     return False

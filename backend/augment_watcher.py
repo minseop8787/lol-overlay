@@ -85,20 +85,49 @@ def is_valid_text(text):
 # =========================
 # 이미지 처리 함수들
 # =========================
-def grab_screen_bgr():
-    with mss.mss() as sct:
-        # 주 모니터 감지
-        monitor = sct.monitors[1]
-        img = np.array(sct.grab(monitor))
-        return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+# =========================
+# 이미지 처리 함수들
+# =========================
+def grab_screen_bgr(sct):
+    # 주 모니터 감지
+    monitor = sct.monitors[1]
+    img = np.array(sct.grab(monitor))
+    return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+
+def get_rois_by_width(width):
+    if width >= 2500:
+        return RESOLUTION_MAP[2560]
+    return RESOLUTION_MAP[1920]
 
 # 🔥 화면 변화 감지 (가벼운 연산)
-def is_screen_changed(img1, img2, threshold=1000):
+def is_screen_changed(img1, img2, rois=None, threshold=1000):
     if img1 is None or img2 is None: return True
     
     # 해상도가 다르면(게임 중 해상도 변경 등) 무조건 변경된 것으로 처리
     if img1.shape != img2.shape: return True
 
+    # ROI가 주어지면 해당 영역만 비교 (증강체 위치만 감시)
+    if rois:
+        changed_pixels = 0
+        for (x1, y1, x2, y2) in rois:
+            # 안전장치
+            h, w, _ = img1.shape
+            if x2 > w or y2 > h: continue
+
+            c1 = img1[y1:y2, x1:x2]
+            c2 = img2[y1:y2, x1:x2]
+            
+            gray1 = cv2.cvtColor(c1, cv2.COLOR_BGR2GRAY)
+            gray2 = cv2.cvtColor(c2, cv2.COLOR_BGR2GRAY)
+            
+            diff = cv2.absdiff(gray1, gray2)
+            changed_pixels += np.count_nonzero(diff > 30)
+            
+            if changed_pixels > threshold:
+                return True
+        return False
+
+    # 기존 전체 화면 비교 (Fallback)
     gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
     gray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
     
@@ -137,13 +166,8 @@ def extract_three_titles(full_img):
     # 1. 현재 화면의 너비 확인
     h, w, _ = full_img.shape
     
-    # 2. 너비에 따른 좌표 선택 (2500 이상이면 울트라와이드로 간주)
-    if w >= 2500:
-        target_rois = RESOLUTION_MAP[2560]
-        # (로그는 너무 자주 뜨면 지저분하니 필요시 주석 해제)
-        # print(f"[Watcher] Detected Ultrawide ({w}px)") 
-    else:
-        target_rois = RESOLUTION_MAP[1920]
+    # 2. 너비에 따른 좌표 선택
+    target_rois = get_rois_by_width(w)
 
     raw_titles = []
     # 3. 3개의 좌표(왼쪽, 중간, 오른쪽)를 순회하며 OCR 수행
@@ -173,6 +197,7 @@ class AugmentWatcher:
         self.required_stability = 2 
         self.last_sent_titles = []
         self.last_sent_time = 0
+        self.sct = mss.mss() # 🔥 MSS 인스턴스 재사용
         
         # 🔥 [최적화 2] OCR 결과 캐싱용 변수
         self.cached_titles = []
@@ -188,9 +213,13 @@ class AugmentWatcher:
         self._stop_event.set()
         if self._thread:
             self._thread.join()
+        # 스레드 종료 후 MSS 닫기
+        try:
+            self.sct.close() 
+        except: pass
 
     def _loop(self):
-        print("[Watcher] OCR Monitoring started (Resolution Auto-Detect)...")
+        print("[Watcher] OCR Monitoring started (Optimized)...")
         error_count = 0
         
         while not self._stop_event.is_set():
@@ -199,24 +228,27 @@ class AugmentWatcher:
                 time.sleep(POLL_INTERVAL)
                 
                 try:
-                    full_img = grab_screen_bgr()
+                    full_img = grab_screen_bgr(self.sct)
                 except:
                     time.sleep(1)
                     continue
 
-                # 화면 변화 체크
-                has_changed = is_screen_changed(self.last_img, full_img)
+                # 해상도에 따른 ROI 가져오기
+                h, w, _ = full_img.shape
+                current_rois = get_rois_by_width(w)
+
+                # 화면 변화 체크 (ROI만)
+                has_changed = is_screen_changed(self.last_img, full_img, rois=current_rois)
                 
                 # 현재 화면 저장 (다음 비교를 위해)
                 self.last_img = full_img 
-
+                
                 if has_changed:
-                    # 🔥 화면이 바뀌었을 때만 무거운 OCR 실행!
-                    # 여기서 full_img를 넘기면 내부에서 해상도를 체크함
+                    # 🔥 변화가 있을 때만 OCR 실행
+                    # print("[Watcher] Screen changed in ROI, running OCR...")
                     titles = extract_three_titles(full_img)
                     self.cached_titles = titles # 결과 저장(캐싱)
                 else:
-                    # 🔥 화면이 안 바뀌었으면? 아까 읽은 거 그대로 씀 (CPU 0% 사용)
                     titles = self.cached_titles
 
                 # --- 이하 로직 동일 ---
@@ -269,10 +301,16 @@ class AugmentWatcher:
             time.sleep(check_interval)
             
             try:
-                current_img = grab_screen_bgr()
-                # 쉬는 도중 화면이 바뀌면(=리롤) 즉시 기상
-                if is_screen_changed(self.last_img, current_img):
-                    print("[Watcher] Reroll detected! Waking up...")
+                current_img = grab_screen_bgr(self.sct)
+                # 쉬는 도중 화면이 바뀌면(=리롤) 즉시 기상 (여기도 ROI 체크가 좋지만 리롤은 전체가 바뀔수도 있음)
+                # 리롤 버튼 위치만 볼 수도 있지만, 일단 전체 변화 체크가 더 확실할 수 있음. 
+                # 하지만 성능을 위해 ROI 체크를 우선 시도해봄.
+                
+                h, w, _ = current_img.shape
+                rois = get_rois_by_width(w)
+
+                if is_screen_changed(self.last_img, current_img, rois=rois):
+                    print("[Watcher] Reroll detected (ROI changed)! Waking up...")
                     break 
             except:
                 break

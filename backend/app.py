@@ -168,6 +168,8 @@ def monitor_gameflow():
             
         time.sleep(1)
 
+import mss
+
 # ==========================================
 # 스레드 2: 상점 감지 (백그라운드 실행)
 # ==========================================
@@ -177,41 +179,48 @@ def monitor_shop():
     # 이전 상태를 기억해서, 상태가 바뀔 때만 로그를 찍음 (로그 폭주 방지)
     last_shop_state = False 
     
-    while True:
-        try:
-            # 1. 게임 중이 아니면 쉰다 (CPU 아끼기)
-            if STATE.get("game_phase") != "InProgress":
-                # 게임이 끝났는데 상점이 열려있다고 되어있으면 닫음
-                if STATE["shop_open"]: 
-                    STATE["shop_open"] = False
-                    print("[ShopMonitor] 게임 종료로 인한 상태 초기화")
-                
-                time.sleep(2) # 푹 쉰다
-                continue
-            
-            # 2. 상점 감지 수행
-            is_open = shop_detector.is_shop_open()
-            
-            # 3. 상태 업데이트
-            STATE["shop_open"] = is_open
-            
-            # 🔥 [로그 최적화] 상태가 변했을 때만 로그 출력
-            if is_open != last_shop_state:
-                status = "열림 🛒" if is_open else "닫힘 ❌"
-                print(f"[ShopMonitor] 상점 상태 변경: {status}")
-                last_shop_state = is_open
-                
-                # 상점이 닫힐 때 메모리 청소 한 번 해줌 (장시간 플레이 대비)
-                if not is_open:
-                    gc.collect()
+    # 🔥 MSS 인스턴스 생성 (재사용)
+    sct = mss.mss()
 
-            # 0.5초 대기
-            time.sleep(0.5) 
-            
-        except Exception as e:
-            # 🔥 [핵심] 에러가 나도 절대 죽지 않고 로그만 남기고 다시 돔
-            print(f"[ShopMonitor] ⚠️ 에러 발생 (스레드 생존): {e}")
-            time.sleep(1) # 에러 났을 땐 1초 쉬었다가 다시 시도
+    try:
+        while True:
+            try:
+                # 1. 게임 중이 아니면 쉰다 (CPU 아끼기)
+                if STATE.get("game_phase") != "InProgress":
+                    # 게임이 끝났는데 상점이 열려있다고 되어있으면 닫음
+                    if STATE["shop_open"]: 
+                        STATE["shop_open"] = False
+                        print("[ShopMonitor] 게임 종료로 인한 상태 초기화")
+                    
+                    time.sleep(2) # 푹 쉰다
+                    continue
+                
+                # 2. 상점 감지 수행 (MSS 인스턴스 전달)
+                is_open = shop_detector.is_shop_open(sct)
+                
+                # 3. 상태 업데이트
+                STATE["shop_open"] = is_open
+                
+                # 🔥 [로그 최적화] 상태가 변했을 때만 로그 출력
+                if is_open != last_shop_state:
+                    status = "열림 🛒" if is_open else "닫힘 ❌"
+                    print(f"[ShopMonitor] 상점 상태 변경: {status}")
+                    last_shop_state = is_open
+                    
+                    # 상점이 닫힐 때 메모리 청소 한 번 해줌 (장시간 플레이 대비)
+                    if not is_open:
+                        import gc
+                        gc.collect()
+
+                # 0.5초 대기
+                time.sleep(0.5) 
+                
+            except Exception as e:
+                # 🔥 [핵심] 에러가 나도 절대 죽지 않고 로그만 남기고 다시 돔
+                print(f"[ShopMonitor] ⚠️ 에러 발생 (스레드 생존): {e}")
+                time.sleep(1) # 에러 났을 땐 1초 쉬었다가 다시 시도
+    finally:
+        sct.close()
 # ==========================================
 # API 라우트
 # ==========================================
