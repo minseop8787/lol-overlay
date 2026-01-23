@@ -201,6 +201,44 @@ class AugmentWatcher:
         
         # 🔥 [최적화 2] OCR 결과 캐싱용 변수
         self.cached_titles = []
+        
+        # 🔥 [신규] 버튼 감지 템플릿 로드
+        self.btn_template = None
+        try:
+            # backend/templates/augment_confirm_button.png
+            btn_path = resource_path(os.path.join("templates", "augment_confirm_button.png"))
+            if os.path.exists(btn_path):
+                self.btn_template = cv2.imread(btn_path, cv2.IMREAD_COLOR)
+                print(f"[Watcher] Button template loaded: {btn_path}")
+            else:
+                print(f"[Watcher] ⚠️ Button template NOT found: {btn_path}")
+        except Exception as e:
+            print(f"[Watcher] Error loading button template: {e}")
+
+    def is_button_visible(self, full_img):
+        if self.btn_template is None: return True # 템플릿 없으면 항상 True (기존 로직이나 항상 OCR 돌림)
+        
+        h, w, _ = full_img.shape
+        # 버튼이 뜰만한 위치 (하단 중앙) ROI 설정
+        # (대략적인 위치를 잡아서 매칭 속도 등 최적화)
+        
+        # 1920x1080 기준: X=(960-100)~(960+100), Y=(800-1000) 정도
+        # 버튼은 보통 (840, 720) ~ (1080, 780) 사이에 위치함 (리롤버튼 등)
+        # 넉넉하게 잡음: 중앙 하단 1/4 영역
+        
+        roi_y = int(h * 0.6)
+        roi_h = int(h * 0.3) # 60% ~ 90% 높이 검색
+        roi_x = int(w * 0.3)
+        roi_w = int(w * 0.4) # 중앙 40% 너비
+        
+        roi = full_img[roi_y:roi_y+roi_h, roi_x:roi_x+roi_w]
+        
+        # 템플릿 매칭
+        res = cv2.matchTemplate(roi, self.btn_template, cv2.TM_CCOEFF_NORMED)
+        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
+        
+        # 임계값: 버튼이 명확하므로 0.8 이상이면 충분
+        return max_val > 0.8
 
     def start(self):
         load_valid_names()
@@ -233,52 +271,35 @@ class AugmentWatcher:
                     time.sleep(1)
                     continue
 
-                # 해상도에 따른 ROI 가져오기
+                # 해상도에 따른 ROI 가져오기 (OCR용)
                 h, w, _ = full_img.shape
                 current_rois = get_rois_by_width(w)
 
-                # 화면 변화 체크 (ROI만)
-                # 🔥 [수정] 임계값 1000 -> 200으로 대폭 낮춤 (작은 글씨 변화 감지)
-                has_changed = is_screen_changed(self.last_img, full_img, rois=current_rois, threshold=200)
-                
-                # 현재 화면 저장 (다음 비교를 위해)
-                self.last_img = full_img 
-                
-                # 🔥 [수정] 안전장치: 화면이 안 바뀌더라도, 결과가 없으면 가끔 한 번씩 재검사 (1초마다)
-                # 이는 초기 진입 시 이미 증강이 떠있는 상태라 변화 감지가 안되는 경우를 방지함
-                force_check = False
-                if not self.cached_titles and (time.time() - self.last_sent_time > 1.0):
-                     # 단, last_sent_time은 전송 시간이라 적절치 않음. 루프 내 별도 타이머 필요.
-                     # 여기선 간단히 5번 루프(약 1초)마다 강제 검사하도록 로직 변경 필요하지만,
-                     # 가장 확실한 건 "캐시가 비어있으면" 변화 여부 상관없이 1초에 한번씩 훑는 것.
-                     pass
+                # 🔥 [수정] 화면 변화 감지 대신, '증강 선택 버튼(파란색 리롤 버튼 등)'이 떠있는지 확인
+                is_active = self.is_button_visible(full_img)
 
-                # 로직 개선: 
-                # 1. 변화 감지됨 -> 즉시 OCR
-                # 2. 변화 없음 & 캐시 있음 -> 캐시 유지 (성공)
-                # 3. 변화 없음 & 캐시 없음 -> 1초마다 강제 재확인 (혹시 놓쳤을까봐)
-                
-                current_time = time.time()
-                
-                # 마지막 강제 체크 시간 (루프 밖 __init__에 있어야 하지만 여기서 임시 처리 위해 전역 변수처럼 사용 불가)
-                # 따라서 로직을 단순화:
-                # "변화가 있거나" OR ("캐시가 비었고" AND "임의 확률로")
-                
-                # 5번에 1번 꼴로(약 1초) 강제 리프레시
-                should_force_refresh = (not self.cached_titles) and (int(current_time * 10) % 10 == 0)
-
-                if has_changed or should_force_refresh:
-                    # if should_force_refresh: print("[Watcher] Failsafe checking...")
+                if is_active:
+                    # 버튼이 보이면 증강 선택 창임 -> OCR 실행
                     titles = extract_three_titles(full_img)
-                    
-                    # 🔥 [중요] 읽힌 게 있을 때만 캐시를 갱신해야 함?
-                    # 아님. 읽힌 게 없으면 없는 대로 갱신해야 증강 선택 후 사라짐을 감지함.
-                    # 하지만 "강제 리프레시" 중에는 화면이 안 바뀌었으므로, 
-                    # 기존에 못 읽던 걸 갑자기 읽을 확률은 낮지만(Tesseract 노이즈), 
-                    # 혹시나 초기 진입 실패를 복구할 수 있음.
                     self.cached_titles = titles 
                 else:
-                    titles = self.cached_titles
+                    # 버튼이 안보이면 증강 창 아님
+                    titles = []
+                    self.cached_titles = []
+
+                # --- 이하 로직 동일 ---
+
+                # A. 증강체 없음
+                if not titles:
+                    self.stability_count = 0
+                    self.last_candidates = []
+                    
+                    if self.last_sent_titles:
+                         print("[Watcher] Augments disappeared (Button hidden).")
+                         self._send_inactive()
+                         self.last_sent_titles = [] 
+                         self.cached_titles = [] 
+                    continue
 
                 # --- 이하 로직 동일 ---
 
