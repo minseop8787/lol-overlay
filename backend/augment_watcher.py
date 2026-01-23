@@ -19,7 +19,7 @@ import requests
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
-    return os.path.join(os.path.abspath("."), relative_path)
+    return os.path.join(os.path.dirname(os.path.abspath(__file__)), relative_path)
 
 # Tesseract 경로 설정
 portable_tesseract = resource_path(os.path.join("Tesseract-OCR", "tesseract.exe"))
@@ -85,14 +85,19 @@ def is_valid_text(text):
 # =========================
 # 이미지 처리 함수들
 # =========================
-# =========================
-# 이미지 처리 함수들
-# =========================
 def grab_screen_bgr(sct):
-    # 주 모니터 감지
-    monitor = sct.monitors[1]
-    img = np.array(sct.grab(monitor))
-    return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+    # 주 모니터 감지 logic 개선
+    try:
+        if len(sct.monitors) > 1:
+            monitor = sct.monitors[1]
+        else:
+            monitor = sct.monitors[0] # 모니터가 하나뿐인 경우
+            
+        img = np.array(sct.grab(monitor))
+        return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
+    except Exception as e:
+        print(f"[Watcher] Screen Grab Error: {e}")
+        raise e
 
 def get_rois_by_width(width):
     if width >= 2500:
@@ -197,7 +202,6 @@ class AugmentWatcher:
         self.required_stability = 2 
         self.last_sent_titles = []
         self.last_sent_time = 0
-        self.sct = mss.mss() # 🔥 MSS 인스턴스 재사용
         
         # 🔥 [최적화 2] OCR 결과 캐싱용 변수
         self.cached_titles = []
@@ -205,8 +209,8 @@ class AugmentWatcher:
         # 🔥 [신규] 버튼 감지 템플릿 로드
         self.btn_template = None
         try:
-            # backend/templates/augment_confirm_button.png
-            btn_path = resource_path(os.path.join("templates", "augment_confirm_button.png"))
+            # backend/assets/augment_confirm_button.png
+            btn_path = resource_path(os.path.join("assets", "augment_confirm_button.png"))
             if os.path.exists(btn_path):
                 self.btn_template = cv2.imread(btn_path, cv2.IMREAD_COLOR)
                 print(f"[Watcher] Button template loaded: {btn_path}")
@@ -237,6 +241,12 @@ class AugmentWatcher:
         res = cv2.matchTemplate(roi, self.btn_template, cv2.TM_CCOEFF_NORMED)
         min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
         
+        # 🔥 [디버깅] 매칭 점수 출력 (테스트 후 주석 처리 필요)
+        # 너무 자주 출력되면 보기 힘드므로, 1초에 한 번 정도만 출력하거나 점수가 높을 때만 출력
+        # 여기서는 디버깅을 위해 매번 출력하되, 0.5 이하는 생략 (너무 낮은건 의미 없음)
+        if max_val > 0.5:
+             print(f"[Debug] Button Match: {max_val:.3f} at {max_loc} (ROI: {roi_x},{roi_y})")
+        
         # 임계값: 버튼이 명확하므로 0.8 이상이면 충분
         return max_val > 0.8
 
@@ -251,119 +261,79 @@ class AugmentWatcher:
         self._stop_event.set()
         if self._thread:
             self._thread.join()
-        # 스레드 종료 후 MSS 닫기
-        try:
-            self.sct.close() 
-        except: pass
 
     def _loop(self):
-        print("[Watcher] OCR Monitoring started (Optimized)...")
-        error_count = 0
+        print("[Watcher] OCR Monitoring started (Button Detection Mode)...")
         
-        while not self._stop_event.is_set():
-            try:
-                # 0.2초 대기 (반응 속도 향상)
-                time.sleep(POLL_INTERVAL)
+        try:
+            # 🔥 [수정] 스레드 내에서 MSS 인스턴스 생성 (스레드 안전성 보장)
+            with mss.mss() as sct:
+                error_count = 0
                 
-                try:
-                    full_img = grab_screen_bgr(self.sct)
-                except:
-                    time.sleep(1)
-                    continue
-
-                # 해상도에 따른 ROI 가져오기 (OCR용)
-                h, w, _ = full_img.shape
-                current_rois = get_rois_by_width(w)
-
-                # 🔥 [수정] 화면 변화 감지 대신, '증강 선택 버튼(파란색 리롤 버튼 등)'이 떠있는지 확인
-                is_active = self.is_button_visible(full_img)
-
-                if is_active:
-                    # 버튼이 보이면 증강 선택 창임 -> OCR 실행
-                    titles = extract_three_titles(full_img)
-                    self.cached_titles = titles 
-                else:
-                    # 버튼이 안보이면 증강 창 아님
-                    titles = []
-                    self.cached_titles = []
-
-                # --- 이하 로직 동일 ---
-
-                # A. 증강체 없음
-                if not titles:
-                    self.stability_count = 0
-                    self.last_candidates = []
-                    
-                    if self.last_sent_titles:
-                         print("[Watcher] Augments disappeared (Button hidden).")
-                         self._send_inactive()
-                         self.last_sent_titles = [] 
-                         self.cached_titles = [] 
-                    continue
-
-                # --- 이하 로직 동일 ---
-
-                # A. 증강체 없음
-                if not titles:
-                    self.stability_count = 0
-                    self.last_candidates = []
-                    
-                    if self.last_sent_titles:
-                         print("[Watcher] Augments disappeared.")
-                         self._send_inactive()
-                         self.last_sent_titles = [] 
-                         self.cached_titles = [] # 캐시도 비움
-                    continue
-                
-                # B. 증강체 감지됨
-                if titles == self.last_candidates:
-                    self.stability_count += 1
-                else:
-                    self.stability_count = 1
-                    self.last_candidates = titles
-                
-                # C. 데이터 전송
-                if self.stability_count >= self.required_stability:
-                    if (titles != self.last_sent_titles) or (time.time() - self.last_sent_time > 3.0):
-                        print(f"[Watcher] Detected: {titles}")
-                        self._send_titles(titles)
-                        self.last_sent_titles = titles
-                        self.last_sent_time = time.time()
+                while not self._stop_event.is_set():
+                    try:
+                        # 0.2초 대기 (CPU 절약)
+                        time.sleep(POLL_INTERVAL)
                         
-                        # 전송 성공 후 리롤 감시하며 대기
-                        self._smart_sleep(2.0)
+                        try:
+                            full_img = grab_screen_bgr(sct)
+                        except Exception as e:
+                            # mss 캡처 실패 시 (보통 게임 종료 등) 잠시 대기
+                            # print(f"[Watcher] Capture failed: {e}")
+                            time.sleep(1)
+                            continue
+
+                        # 🔥 [핵심] 증강 선택 버튼이 보이는지 확인 (가벼운 연산)
+                        is_active = self.is_button_visible(full_img)
+
+                        if is_active:
+                            # 버튼이 보이면 -> OCR 실행 (무거운 연산)
+                            titles = extract_three_titles(full_img)
+                            self.cached_titles = titles 
+                        else:
+                            # 버튼이 안 보이면 -> 증강 아님
+                            titles = []
+                            self.cached_titles = []
+
+                        # A. 증강체 없음 (버튼 미감지 혹은 OCR 실패)
+                        if not titles:
+                            self.stability_count = 0
+                            self.last_candidates = []
+                            
+                            # 이전에 보냈던 상태가 있으면 '비활성화' 전송
+                            if self.last_sent_titles:
+                                 print("[Watcher] Augments disappeared (Button hidden/OCR empty).")
+                                 self._send_inactive()
+                                 self.last_sent_titles = [] 
+                                 self.cached_titles = [] 
+                            continue
                         
-                        error_count = 0 
+                        # B. 증강체 감지됨
+                        if titles == self.last_candidates:
+                            self.stability_count += 1
+                        else:
+                            self.stability_count = 1
+                            self.last_candidates = titles
+                        
+                        # C. 데이터 전송
+                        if self.stability_count >= self.required_stability:
+                            # 내용이 바뀌었거나, 마지막 전송 후 3초가 지났으면 전송 (리프레시)
+                            if (titles != self.last_sent_titles) or (time.time() - self.last_sent_time > 3.0):
+                                print(f"[Watcher] Detected: {titles}")
+                                self._send_titles(titles)
+                                self.last_sent_titles = titles
+                                self.last_sent_time = time.time()
+                                
+                                # 전송 성공 후에도 계속 감시
+                                error_count = 0 
 
-            except Exception as e:
-                error_count += 1
-                if error_count % 10 == 0:
-                    print(f"[Watcher] Loop Error: {e}")
-                time.sleep(1)
-
-    # 리롤 감시하며 쉬기
-    def _smart_sleep(self, duration):
-        check_interval = 0.2
-        steps = int(duration / check_interval)
-        
-        for _ in range(steps):
-            if self._stop_event.is_set(): break
-            time.sleep(check_interval)
-            
-            try:
-                current_img = grab_screen_bgr(self.sct)
-                # 쉬는 도중 화면이 바뀌면(=리롤) 즉시 기상 (여기도 ROI 체크가 좋지만 리롤은 전체가 바뀔수도 있음)
-                # 리롤 버튼 위치만 볼 수도 있지만, 일단 전체 변화 체크가 더 확실할 수 있음. 
-                # 하지만 성능을 위해 ROI 체크를 우선 시도해봄.
-                
-                h, w, _ = current_img.shape
-                rois = get_rois_by_width(w)
-
-                if is_screen_changed(self.last_img, current_img, rois=rois):
-                    print("[Watcher] Reroll detected (ROI changed)! Waking up...")
-                    break 
-            except:
-                break
+                    except Exception as e:
+                        error_count += 1
+                        if error_count % 50 == 0:
+                            print(f"[Watcher] Loop Error: {e}")
+                        time.sleep(1)
+        except Exception as e:
+             print(f"[Watcher] Thread Fatal Error: {e}")
 
     def _send_titles(self, titles):
         try:

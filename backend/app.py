@@ -11,6 +11,7 @@ import sys
 import io
 
 # 🔥 [필수] 인코딩 설정 (PyInstaller 빌드 시 에러 방지)
+# 🔥 [필수] 인코딩 설정 (PyInstaller 빌드 시 에러 방지)
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8', errors='replace')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='utf-8', errors='replace')
 
@@ -350,12 +351,29 @@ def get_champion_build():
         "data": build_data
     })
 
+import traceback
+
 def start_watcher():
-    AugmentWatcher().start()
+    retry_count = 0
+    while retry_count < 5:
+        try:
+            print(f"[Server] AugmentWatcher Thread Starting (Attempt {retry_count+1})...")
+            watcher = AugmentWatcher()
+            watcher.start()
+            print("[Server] AugmentWatcher Started Successfully.")
+            return
+        except Exception as e:
+            print(f"[Server] ❌ AugmentWatcher Start Failed: {e}")
+            traceback.print_exc()
+            retry_count += 1
+            time.sleep(2)
+    print("[Server] ❌ AugmentWatcher failed to start after 5 attempts.")
 
 if __name__ == "__main__":
     load_build_data() 
     lcu_driver.driver.connect()
+    
+    print("--- Starting Background Threads ---")
     
     # 스레드 시작
     threading.Thread(target=start_watcher, daemon=True).start()
