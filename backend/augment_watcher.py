@@ -32,19 +32,29 @@ else:
 
 MAPPING_TXT_PATH = Path(resource_path("augment_mapping_full.txt"))
 
-# 🔥 [최적화 1] 반응 속도를 위해 0.2초로 단축 (CPU 최적화 덕분에 괜찮음)
+# 🔥 [최적화] 반응 속도를 위해 0.2초로 단축
 POLL_INTERVAL = 0.2       
 
-# [좌표 설정]
-CARD_TOP_Y = 180
-CARD_BOT_Y = 707
-LEFT_CARD_X1,  LEFT_CARD_X2  = 449, 760
-MID_CARD_X1,   MID_CARD_X2   = 806, 1108
-RIGHT_CARD_X1, RIGHT_CARD_X2 = 1160, 1462
-
-TITLE_ROI_Y1 = 232
-TITLE_ROI_Y2 = 267
-TITLE_ROI_MARGIN_X = 15 
+# =========================
+# 📐 해상도별 좌표 설정 (ROI: x1, y1, x2, y2)
+# =========================
+# 기존 1920 좌표는 '카드위치 + 마진' 계산을 미리 수행하여 절대 좌표로 변환함
+RESOLUTION_MAP = {
+    # [기본] 1920x1080
+    # 계산식: Y=180+232~180+267, X=카드좌표 ± 15(마진)
+    1920: [
+        (474, 412, 745, 447),   # 왼쪽
+        (821, 412, 1093, 447),  # 중간
+        (1175, 412, 1447, 447)  # 오른쪽
+    ],
+    # [친구] 2560x1080 (울트라와이드)
+    # 친구분이 제공한 좌표 그대로 적용
+    2560: [
+        (789, 410, 1063, 448),  # 왼쪽
+        (1143, 414, 1413, 446), # 중간
+        (1500, 413, 1767, 447)  # 오른쪽
+    ]
+}
 
 VALID_NAMES = []
 
@@ -77,6 +87,7 @@ def is_valid_text(text):
 # =========================
 def grab_screen_bgr():
     with mss.mss() as sct:
+        # 주 모니터 감지
         monitor = sct.monitors[1]
         img = np.array(sct.grab(monitor))
         return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
@@ -85,10 +96,13 @@ def grab_screen_bgr():
 def is_screen_changed(img1, img2, threshold=1000):
     if img1 is None or img2 is None: return True
     
+    # 해상도가 다르면(게임 중 해상도 변경 등) 무조건 변경된 것으로 처리
+    if img1.shape != img2.shape: return True
+
     gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
     gray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
     
-    # 1/4 리사이즈로 속도 극대화
+    # 1/4 리사이즈로 비교 속도 극대화
     small1 = cv2.resize(gray1, (0,0), fx=0.25, fy=0.25)
     small2 = cv2.resize(gray2, (0,0), fx=0.25, fy=0.25)
 
@@ -104,12 +118,13 @@ def preprocess_for_ocr(img_roi):
     binary = cv2.resize(binary, (width * 2, height * 2), interpolation=cv2.INTER_CUBIC)
     return binary
 
-def extract_title_text(full_img, card_x1, card_x2):
-    y1 = CARD_TOP_Y + TITLE_ROI_Y1
-    y2 = CARD_TOP_Y + TITLE_ROI_Y2
-    x1 = card_x1 + TITLE_ROI_MARGIN_X
-    x2 = card_x2 - TITLE_ROI_MARGIN_X
+def extract_title_text(full_img, roi_coords):
+    x1, y1, x2, y2 = roi_coords
     
+    # 이미지 범위 체크 (안전장치)
+    h, w, _ = full_img.shape
+    if x2 > w or y2 > h: return ""
+
     roi = full_img[y1:y2, x1:x2]
     if roi.size == 0: return ""
     
@@ -119,11 +134,23 @@ def extract_title_text(full_img, card_x1, card_x2):
     return text
 
 def extract_three_titles(full_img):
-    t1 = extract_title_text(full_img, LEFT_CARD_X1, LEFT_CARD_X2)
-    t2 = extract_title_text(full_img, MID_CARD_X1, MID_CARD_X2)
-    t3 = extract_title_text(full_img, RIGHT_CARD_X1, RIGHT_CARD_X2)
+    # 1. 현재 화면의 너비 확인
+    h, w, _ = full_img.shape
     
-    raw_titles = [t for t in [t1, t2, t3] if len(t) > 1]
+    # 2. 너비에 따른 좌표 선택 (2500 이상이면 울트라와이드로 간주)
+    if w >= 2500:
+        target_rois = RESOLUTION_MAP[2560]
+        # (로그는 너무 자주 뜨면 지저분하니 필요시 주석 해제)
+        # print(f"[Watcher] Detected Ultrawide ({w}px)") 
+    else:
+        target_rois = RESOLUTION_MAP[1920]
+
+    raw_titles = []
+    # 3. 3개의 좌표(왼쪽, 중간, 오른쪽)를 순회하며 OCR 수행
+    for roi in target_rois:
+        text = extract_title_text(full_img, roi)
+        if len(text) > 1:
+            raw_titles.append(text)
     
     if len(raw_titles) != 3: return []
 
@@ -163,7 +190,7 @@ class AugmentWatcher:
             self._thread.join()
 
     def _loop(self):
-        print("[Watcher] OCR Monitoring started (Fast & Optimized)...")
+        print("[Watcher] OCR Monitoring started (Resolution Auto-Detect)...")
         error_count = 0
         
         while not self._stop_event.is_set():
@@ -185,14 +212,14 @@ class AugmentWatcher:
 
                 if has_changed:
                     # 🔥 화면이 바뀌었을 때만 무거운 OCR 실행!
+                    # 여기서 full_img를 넘기면 내부에서 해상도를 체크함
                     titles = extract_three_titles(full_img)
                     self.cached_titles = titles # 결과 저장(캐싱)
                 else:
                     # 🔥 화면이 안 바뀌었으면? 아까 읽은 거 그대로 씀 (CPU 0% 사용)
-                    # 이렇게 해야 '안정화 카운트'가 쭉쭉 올라가서 바로 전송됨
                     titles = self.cached_titles
 
-                # --- 이하 로직은 동일하지만, 위 캐싱 덕분에 매끄럽게 작동함 ---
+                # --- 이하 로직 동일 ---
 
                 # A. 증강체 없음
                 if not titles:
@@ -232,7 +259,7 @@ class AugmentWatcher:
                     print(f"[Watcher] Loop Error: {e}")
                 time.sleep(1)
 
-    # 리롤 감지하며 쉬기
+    # 리롤 감시하며 쉬기
     def _smart_sleep(self, duration):
         check_interval = 0.2
         steps = int(duration / check_interval)

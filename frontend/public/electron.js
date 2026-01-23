@@ -1,7 +1,13 @@
-const { app, BrowserWindow, screen, Tray, Menu, Notification, powerSaveBlocker, ipcMain } = require('electron');
+const { app, BrowserWindow, screen, Tray, Menu, Notification, powerSaveBlocker, ipcMain, dialog } = require('electron');
+const { autoUpdater } = require('electron-updater');
+const log = require('electron-log');
 const path = require('path');
 const { spawn } = require('child_process');
 const fs = require('fs');
+
+// 🔥 [로그 설정] 업데이트 문제 발생 시 로그 파일 확인용
+log.transports.file.level = 'info';
+autoUpdater.logger = log;
 
 // 🔥 [하드웨어 가속 끄기] 투명창 마우스 인식을 돕습니다 (필수 권장)
 app.disableHardwareAcceleration();
@@ -29,7 +35,7 @@ function createTray() {
   try {
     tray = new Tray(iconPath);
     const contextMenu = Menu.buildFromTemplate([
-      { label: 'LoL Overlay Pro 작동 중', enabled: false },
+      { label: `LoL Overlay Pro v${app.getVersion()}`, enabled: false }, // 버전 표시 추가
       { type: 'separator' },
       { 
         label: '종료 (Quit)', 
@@ -62,7 +68,7 @@ function showStartedNotification() {
 
   const notif = new Notification({
     title: 'LoL Overlay Pro',
-    body: '오버레이가 실행되었습니다! 트레이에서 종료 가능합니다.',
+    body: `v${app.getVersion()} 실행됨! 트레이에서 종료 가능합니다.`,
     silent: false,
   });
   
@@ -104,7 +110,7 @@ function launchBackend() {
 }
 
 // ==============================
-// 4. 메인 윈도우 생성 (GPS 기능 추가)
+// 4. 메인 윈도우 생성 (GPS 기능 + 업데이트 확인)
 // ==============================
 function createWindow() {
   const primaryDisplay = screen.getPrimaryDisplay();
@@ -124,7 +130,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: false,
+      devTools: false, // 배포 시 false 권장
       backgroundThrottling: false,
       preload: path.join(__dirname, 'preload.js')
     }
@@ -146,8 +152,14 @@ function createWindow() {
   
   mainWindow.on('closed', () => (mainWindow = null));
 
-  // 🔥 [핵심 추가] GPS 추적 시스템 (0.1초마다 좌표 전송)
-  // 마우스 이벤트를 OS가 씹어버리는 현상을 방지하기 위함
+  // 🔥 [업데이트 체크] 창이 뜰 준비가 되면 업데이트 확인 시작
+  mainWindow.once('ready-to-show', () => {
+    if (!isDev) { // 개발 모드에서는 업데이트 체크 안 함
+        autoUpdater.checkForUpdatesAndNotify();
+    }
+  });
+
+  // 🔥 [핵심 유지] GPS 추적 시스템 (0.1초마다 좌표 전송)
   setInterval(() => {
     try {
       if (mainWindow && !mainWindow.isDestroyed()) {
@@ -157,11 +169,49 @@ function createWindow() {
     } catch (e) {
       // 윈도우 종료 시 에러 무시
     }
-  }, 100); // 0.1초 간격 (CPU 부하 거의 없음)
+  }, 100); // 0.1초 간격
 }
 
 // ==============================
-// 5. IPC 통신 핸들러
+// 5. 업데이트 이벤트 핸들러 (로그 & 알림)
+// ==============================
+autoUpdater.on('checking-for-update', () => {
+    log.info('업데이트 확인 중...');
+});
+
+autoUpdater.on('update-available', () => {
+    log.info('새로운 업데이트 발견! 다운로드 시작...');
+    // 필요하다면 사용자에게 알림 (여기선 조용히 다운로드)
+});
+
+autoUpdater.on('update-not-available', () => {
+    log.info('현재 최신 버전입니다.');
+});
+
+autoUpdater.on('error', (err) => {
+    log.error('업데이트 에러:', err);
+});
+
+autoUpdater.on('update-downloaded', () => {
+    log.info('다운로드 완료. 앱 종료 시 설치됩니다.');
+    
+    // 사용자에게 "지금 재시작하시겠습니까?" 물어보기
+    dialog.showMessageBox({
+        type: 'info',
+        title: '업데이트 설치',
+        message: '새로운 버전이 다운로드되었습니다. 지금 재시작하여 설치하시겠습니까?',
+        buttons: ['지금 재시작', '나중에']
+    }).then((result) => {
+        if (result.response === 0) { // '지금 재시작' 클릭 시
+            isQuitting = true;
+            autoUpdater.quitAndInstall();
+        }
+    });
+});
+
+
+// ==============================
+// 6. IPC 통신 핸들러
 // ==============================
 ipcMain.on('set-ignore-mouse-events', (event, ignore, options) => {
   const win = BrowserWindow.fromWebContents(event.sender);

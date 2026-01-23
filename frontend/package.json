@@ -1,6 +1,6 @@
 {
   "name": "lol-overlay",
-  "version": "1.0.0",
+  "version": "1.0.3",
   "description": "LoL ARAM Overlay",
   "repository": {
     "type": "git",
@@ -11,6 +11,8 @@
   "main": "public/electron.js",
   "homepage": "./",
   "dependencies": {
+    "electron-log": "^5.4.3",
+    "electron-updater": "^6.7.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1"
@@ -28,9 +30,27 @@
   "build": {
     "appId": "com.loloverlay.app",
     "productName": "LoL Overlay Pro",
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "minseop8787",
+        "repo": "lol-overlay"
+      }
+    ],
     "win": {
       "target": "nsis",
-      "icon": "public/favicon.ico"
+      "icon": "public/favicon.ico",
+      "publish": [
+        "github"
+      ]
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "LoL Overlay Pro",
+      "artifactName": "LoL-Overlay-Pro-Setup-${version}.${ext}"
     },
     "extraResources": [
       {
