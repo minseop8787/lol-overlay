@@ -34,10 +34,8 @@ STATE = {
     "shop_open": False      # 상점 열림 상태
 }
 
-# 문자열 정규화 함수 (띄어쓰기, 특수문자 제거, 소문자 변환)
-def normalize_name(name):
-    if not name: return ""
-    return name.lower().replace(" ", "").replace("'", "").replace(".", "").replace("&", "")
+# 문자열 정규화 함수 (database.py의 함수 재사용)
+normalize_name = database.normalize_name
 
 # 빌드 데이터 저장소
 BUILD_DATA = {}

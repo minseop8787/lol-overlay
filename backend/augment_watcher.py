@@ -38,17 +38,14 @@ POLL_INTERVAL = 0.2
 # =========================
 # 📐 해상도별 좌표 설정 (ROI: x1, y1, x2, y2)
 # =========================
-# 기존 1920 좌표는 '카드위치 + 마진' 계산을 미리 수행하여 절대 좌표로 변환함
 RESOLUTION_MAP = {
     # [기본] 1920x1080
-    # 계산식: Y=180+232~180+267, X=카드좌표 ± 15(마진)
     1920: [
         (474, 412, 740, 447),   # 왼쪽
         (824, 412, 1093, 447),  # 중간
         (1180, 412, 1447, 447)  # 오른쪽
     ],
     # [친구] 2560x1080 (울트라와이드)
-    # 친구분이 제공한 좌표 그대로 적용
     2560: [
         (789, 410, 1063, 448),  # 왼쪽
         (1143, 414, 1413, 446), # 중간
@@ -96,7 +93,7 @@ def grab_screen_bgr(sct):
         img = np.array(sct.grab(monitor))
         return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
     except Exception as e:
-        print(f"[Watcher] Screen Grab Error: {e}")
+        # print(f"[Watcher] Screen Grab Error: {e}") # 너무 시끄러울 수 있음
         raise e
 
 def get_rois_by_width(width):
@@ -105,45 +102,29 @@ def get_rois_by_width(width):
     return RESOLUTION_MAP[1920]
 
 # 🔥 화면 변화 감지 (가벼운 연산)
-def is_screen_changed(img1, img2, rois=None, threshold=1000):
+def is_screen_changed(img1, img2, threshold=1000):
     if img1 is None or img2 is None: return True
     
-    # 해상도가 다르면(게임 중 해상도 변경 등) 무조건 변경된 것으로 처리
+    # 해상도가 다르면 무조건 변경
     if img1.shape != img2.shape: return True
 
-    # ROI가 주어지면 해당 영역만 비교 (증강체 위치만 감시)
-    if rois:
-        changed_pixels = 0
-        for (x1, y1, x2, y2) in rois:
-            # 안전장치
-            h, w, _ = img1.shape
-            if x2 > w or y2 > h: continue
-
-            c1 = img1[y1:y2, x1:x2]
-            c2 = img2[y1:y2, x1:x2]
-            
-            gray1 = cv2.cvtColor(c1, cv2.COLOR_BGR2GRAY)
-            gray2 = cv2.cvtColor(c2, cv2.COLOR_BGR2GRAY)
-            
-            diff = cv2.absdiff(gray1, gray2)
-            changed_pixels += np.count_nonzero(diff > 30)
-            
-            if changed_pixels > threshold:
-                return True
-        return False
-
-    # 기존 전체 화면 비교 (Fallback)
-    gray1 = cv2.cvtColor(img1, cv2.COLOR_BGR2GRAY)
-    gray2 = cv2.cvtColor(img2, cv2.COLOR_BGR2GRAY)
+    # 🔥 [수정] 1/10 리사이즈로 초고속 비교
+    h, w = img1.shape[:2]
+    small_h, small_w = max(1, h//10), max(1, w//10)
     
-    # 1/4 리사이즈로 비교 속도 극대화
-    small1 = cv2.resize(gray1, (0,0), fx=0.25, fy=0.25)
-    small2 = cv2.resize(gray2, (0,0), fx=0.25, fy=0.25)
+    small1 = cv2.resize(img1, (small_w, small_h), interpolation=cv2.INTER_NEAREST)
+    small2 = cv2.resize(img2, (small_w, small_h), interpolation=cv2.INTER_NEAREST)
 
-    diff = cv2.absdiff(small1, small2)
+    gray1 = cv2.cvtColor(small1, cv2.COLOR_BGR2GRAY)
+    gray2 = cv2.cvtColor(small2, cv2.COLOR_BGR2GRAY)
+
+    diff = cv2.absdiff(gray1, gray2)
+    # 리사이즈 했으므로 임계값도 조정해야 함 (픽셀 수가 1/100로 줄었으므로)
+    # 기존 threshold가 1000이라면 10 정도로 줄여야 함
+    sensitive_threshold = max(5, threshold // 100) 
+    
     non_zero_count = np.count_nonzero(diff > 30)
-    
-    return non_zero_count > threshold
+    return non_zero_count > sensitive_threshold
 
 def preprocess_for_ocr(img_roi):
     gray = cv2.cvtColor(img_roi, cv2.COLOR_BGR2GRAY)
@@ -202,53 +183,7 @@ class AugmentWatcher:
         self.required_stability = 2 
         self.last_sent_titles = []
         self.last_sent_time = 0
-        
-        # 🔥 [최적화 2] OCR 결과 캐싱용 변수
         self.cached_titles = []
-        
-        # 🔥 [신규] 버튼 감지 템플릿 로드
-        self.btn_template = None
-        try:
-            # backend/assets/augment_confirm_button.png
-            btn_path = resource_path(os.path.join("assets", "augment_confirm_button.png"))
-            if os.path.exists(btn_path):
-                self.btn_template = cv2.imread(btn_path, cv2.IMREAD_COLOR)
-                print(f"[Watcher] Button template loaded: {btn_path}")
-            else:
-                print(f"[Watcher] ⚠️ Button template NOT found: {btn_path}")
-        except Exception as e:
-            print(f"[Watcher] Error loading button template: {e}")
-
-    def is_button_visible(self, full_img):
-        if self.btn_template is None: return True # 템플릿 없으면 항상 True (기존 로직이나 항상 OCR 돌림)
-        
-        h, w, _ = full_img.shape
-        # 버튼이 뜰만한 위치 (하단 중앙) ROI 설정
-        # (대략적인 위치를 잡아서 매칭 속도 등 최적화)
-        
-        # 1920x1080 기준: X=(960-100)~(960+100), Y=(800-1000) 정도
-        # 버튼은 보통 (840, 720) ~ (1080, 780) 사이에 위치함 (리롤버튼 등)
-        # 넉넉하게 잡음: 중앙 하단 1/4 영역
-        
-        roi_y = int(h * 0.6)
-        roi_h = int(h * 0.3) # 60% ~ 90% 높이 검색
-        roi_x = int(w * 0.3)
-        roi_w = int(w * 0.4) # 중앙 40% 너비
-        
-        roi = full_img[roi_y:roi_y+roi_h, roi_x:roi_x+roi_w]
-        
-        # 템플릿 매칭
-        res = cv2.matchTemplate(roi, self.btn_template, cv2.TM_CCOEFF_NORMED)
-        min_val, max_val, min_loc, max_loc = cv2.minMaxLoc(res)
-        
-        # 🔥 [디버깅] 매칭 점수 출력 (테스트 후 주석 처리 필요)
-        # 너무 자주 출력되면 보기 힘드므로, 1초에 한 번 정도만 출력하거나 점수가 높을 때만 출력
-        # 여기서는 디버깅을 위해 매번 출력하되, 0.5 이하는 생략 (너무 낮은건 의미 없음)
-        if max_val > 0.5:
-             print(f"[Debug] Button Match: {max_val:.3f} at {max_loc} (ROI: {roi_x},{roi_y})")
-        
-        # 임계값: 버튼이 명확하므로 0.8 이상이면 충분
-        return max_val > 0.8
 
     def start(self):
         load_valid_names()
@@ -263,77 +198,85 @@ class AugmentWatcher:
             self._thread.join()
 
     def _loop(self):
-        print("[Watcher] OCR Monitoring started (Button Detection Mode)...")
+        print("[Watcher] OCR Monitoring started (Optimized)...")
+        error_count = 0
         
-        try:
-            # 🔥 [수정] 스레드 내에서 MSS 인스턴스 생성 (스레드 안전성 보장)
-            with mss.mss() as sct:
-                error_count = 0
-                
-                while not self._stop_event.is_set():
+        # 🔥 [핵심 1] MSS 객체를 스레드 내에서 한 번만 생성하여 사용
+        with mss.mss() as sct:
+            while not self._stop_event.is_set():
+                try:
+                    time.sleep(POLL_INTERVAL)
+                    
+                    # 1. 화면 캡처
                     try:
-                        # 0.2초 대기 (CPU 절약)
-                        time.sleep(POLL_INTERVAL)
-                        
-                        try:
-                            full_img = grab_screen_bgr(sct)
-                        except Exception as e:
-                            # mss 캡처 실패 시 (보통 게임 종료 등) 잠시 대기
-                            # print(f"[Watcher] Capture failed: {e}")
-                            time.sleep(1)
-                            continue
-
-                        # 🔥 [핵심] 증강 선택 버튼이 보이는지 확인 (가벼운 연산)
-                        is_active = self.is_button_visible(full_img)
-
-                        if is_active:
-                            # 버튼이 보이면 -> OCR 실행 (무거운 연산)
-                            titles = extract_three_titles(full_img)
-                            self.cached_titles = titles 
-                        else:
-                            # 버튼이 안 보이면 -> 증강 아님
-                            titles = []
-                            self.cached_titles = []
-
-                        # A. 증강체 없음 (버튼 미감지 혹은 OCR 실패)
-                        if not titles:
-                            self.stability_count = 0
-                            self.last_candidates = []
-                            
-                            # 이전에 보냈던 상태가 있으면 '비활성화' 전송
-                            if self.last_sent_titles:
-                                 print("[Watcher] Augments disappeared (Button hidden/OCR empty).")
-                                 self._send_inactive()
-                                 self.last_sent_titles = [] 
-                                 self.cached_titles = [] 
-                            continue
-                        
-                        # B. 증강체 감지됨
-                        if titles == self.last_candidates:
-                            self.stability_count += 1
-                        else:
-                            self.stability_count = 1
-                            self.last_candidates = titles
-                        
-                        # C. 데이터 전송
-                        if self.stability_count >= self.required_stability:
-                            # 내용이 바뀌었거나, 마지막 전송 후 3초가 지났으면 전송 (리프레시)
-                            if (titles != self.last_sent_titles) or (time.time() - self.last_sent_time > 3.0):
-                                print(f"[Watcher] Detected: {titles}")
-                                self._send_titles(titles)
-                                self.last_sent_titles = titles
-                                self.last_sent_time = time.time()
-                                
-                                # 전송 성공 후에도 계속 감시
-                                error_count = 0 
-
-                    except Exception as e:
-                        error_count += 1
-                        if error_count % 50 == 0:
-                            print(f"[Watcher] Loop Error: {e}")
+                        full_img = grab_screen_bgr(sct)
+                    except Exception:
                         time.sleep(1)
-        except Exception as e:
-             print(f"[Watcher] Thread Fatal Error: {e}")
+                        continue
+
+                    # 2. 화면 변화 감지
+                    has_changed = is_screen_changed(self.last_img, full_img)
+                    self.last_img = full_img 
+
+                    # 3. OCR 수행 여부 결정
+                    if has_changed:
+                        titles = extract_three_titles(full_img)
+                        self.cached_titles = titles 
+                    else:
+                        titles = self.cached_titles
+
+                    # 4. 데이터 안정화 및 전송 로직 (기존과 동일)
+                    if not titles:
+                        self.stability_count = 0
+                        self.last_candidates = []
+                        
+                        if self.last_sent_titles:
+                             print("[Watcher] Augments disappeared.")
+                             self._send_inactive()
+                             self.last_sent_titles = [] 
+                             self.cached_titles = []
+                        continue
+                    
+                    if titles == self.last_candidates:
+                        self.stability_count += 1
+                    else:
+                        self.stability_count = 1
+                        self.last_candidates = titles
+                    
+                    if self.stability_count >= self.required_stability:
+                        if (titles != self.last_sent_titles) or (time.time() - self.last_sent_time > 3.0):
+                            print(f"[Watcher] Detected: {titles}")
+                            self._send_titles(titles)
+                            self.last_sent_titles = titles
+                            self.last_sent_time = time.time()
+                            
+                            # 전송 성공 후 잠시 대기
+                            self._smart_sleep(2.0, sct)
+                            error_count = 0 
+
+                except Exception as e:
+                    # 🔥 [핵심 2] 무한 루프 사망 방지
+                    error_count += 1
+                    if error_count % 10 == 0:
+                        print(f"[Watcher] Loop Error: {e}")
+                    time.sleep(1)
+
+    # 리롤 감시하며 쉬기 (sct 객체 전달받음)
+    def _smart_sleep(self, duration, sct):
+        check_interval = 0.2
+        steps = int(duration / check_interval)
+        
+        for _ in range(steps):
+            if self._stop_event.is_set(): break
+            time.sleep(check_interval)
+            
+            try:
+                current_img = grab_screen_bgr(sct)
+                if is_screen_changed(self.last_img, current_img):
+                    print("[Watcher] Reroll detected! Waking up...")
+                    break 
+            except:
+                break
 
     def _send_titles(self, titles):
         try:

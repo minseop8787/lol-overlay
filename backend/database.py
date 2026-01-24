@@ -19,21 +19,22 @@ GLOBAL_AUG_JSON_PATH = resource_path("augments_global_ko.json")
 MAPPING_TXT_PATH = resource_path("augment_mapping_full.txt")
 DB_NAME = resource_path("game_data.db")
 
-# 🔥 [핵심] 문자열 정규화 함수
-# 띄어쓰기, 특수문자(', ., &) 제거 및 소문자 변환
-# 예: "Kog'Maw" -> "kogmaw", "Dr. Mundo" -> "drmundo"
+# 🔥 [핵심] 문자열 정규화 함수 (Regex 사용)
+# 모든 특수문자와 공백을 제거하고 소문자만 남김
+# "Kog'Maw" -> "kogmaw", "전환: 프리즘" -> "전환프리즘"
+import re
 def normalize_name(name):
     if not name: return ""
 
     EXCEPTION_MAP = {
-        "MonkeyKing": "wukong",   # 오공
-    #    "Renata": "renataglasc"   # 레나타 글라스크 (가끔 Renata로 올 때 있음)
+        "MonkeyKing": "wukong",
     }
 
     if name in EXCEPTION_MAP:
         return EXCEPTION_MAP[name]
 
-    return name.lower().replace(" ", "").replace("'", "").replace(".", "").replace("&", "")
+    # 한글, 영어, 숫자만 남기고 나머지(공백, 특수문자) 다 제거
+    return re.sub(r'[^a-zA-Z0-9가-힣]', '', name).lower()
 
 # ==========================================
 # 2. 전역 변수 (캐싱용)
