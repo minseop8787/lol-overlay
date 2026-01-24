@@ -1,3 +1,7 @@
+"""
+augment_watcher.py - PaddleOCR(PP-OCRv5 Mobile) 버전
+Tesseract를 제거하고 경량화된 딥러닝 모델을 사용합니다.
+"""
 import time
 import threading
 import re
@@ -9,47 +13,55 @@ from pathlib import Path
 import numpy as np
 import cv2
 import mss
-import pytesseract
 import requests
+
+# =========================
+# PaddleOCR 초기화
+# =========================
+try:
+    from paddleocr import TextRecognition
+    print("[Watcher] Loading PaddleOCR Model (korean_PP-OCRv5_mobile_rec)...")
+    OCR_MODEL = TextRecognition(model_name="korean_PP-OCRv5_mobile_rec")
+    print("[Watcher] ✅ PaddleOCR Model Loaded!")
+    USE_PADDLE = True
+except ImportError as e:
+    print(f"[Watcher] ⚠️ PaddleOCR 로드 실패: {e}")
+    print("[Watcher] Tesseract 폴백 모드로 전환합니다.")
+    USE_PADDLE = False
+    import pytesseract
 
 # =========================
 # PATH & SETTINGS
 # =========================
-
 def resource_path(relative_path):
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative_path)
     return os.path.join(os.path.dirname(os.path.abspath(__file__)), relative_path)
 
-# Tesseract 경로 설정
-portable_tesseract = resource_path(os.path.join("Tesseract-OCR", "tesseract.exe"))
-if os.path.exists(portable_tesseract):
-    pytesseract.pytesseract.tesseract_cmd = portable_tesseract
-    print(f"[Watcher] Using Portable Tesseract: {portable_tesseract}")
-else:
-    pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
-    print("[Watcher] Using System Tesseract")
+# Tesseract Fallback 경로
+if not USE_PADDLE:
+    portable_tesseract = resource_path(os.path.join("Tesseract-OCR", "tesseract.exe"))
+    if os.path.exists(portable_tesseract):
+        pytesseract.pytesseract.tesseract_cmd = portable_tesseract
+    else:
+        pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files\Tesseract-OCR\tesseract.exe"
 
 MAPPING_TXT_PATH = Path(resource_path("augment_mapping_full.txt"))
-
-# 🔥 [최적화] 반응 속도를 위해 0.2초로 단축
-POLL_INTERVAL = 0.2       
+POLL_INTERVAL = 0.2
 
 # =========================
-# 📐 해상도별 좌표 설정 (ROI: x1, y1, x2, y2)
+# 📐 해상도별 좌표 설정
 # =========================
 RESOLUTION_MAP = {
-    # [기본] 1920x1080
     1920: [
-        (474, 412, 740, 447),   # 왼쪽
-        (824, 412, 1093, 447),  # 중간
-        (1180, 412, 1447, 447)  # 오른쪽
+        (474, 412, 740, 447),
+        (824, 412, 1093, 447),
+        (1180, 412, 1447, 447)
     ],
-    # [친구] 2560x1080 (울트라와이드)
     2560: [
-        (789, 410, 1063, 448),  # 왼쪽
-        (1143, 414, 1413, 446), # 중간
-        (1500, 413, 1767, 447)  # 오른쪽
+        (789, 410, 1063, 448),
+        (1143, 414, 1413, 446),
+        (1500, 413, 1767, 447)
     ]
 }
 
@@ -57,13 +69,11 @@ VALID_NAMES = []
 
 def load_valid_names():
     global VALID_NAMES
-    path_obj = MAPPING_TXT_PATH
-    if not os.path.exists(path_obj):
+    if not os.path.exists(MAPPING_TXT_PATH):
         return
-
     names = set()
     try:
-        with open(path_obj, "r", encoding="utf-8") as f:
+        with open(MAPPING_TXT_PATH, "r", encoding="utf-8") as f:
             for line in f:
                 if " : " in line:
                     ko, _ = line.split(" : ", 1)
@@ -83,17 +93,11 @@ def is_valid_text(text):
 # 이미지 처리 함수들
 # =========================
 def grab_screen_bgr(sct):
-    # 주 모니터 감지 logic 개선
     try:
-        if len(sct.monitors) > 1:
-            monitor = sct.monitors[1]
-        else:
-            monitor = sct.monitors[0] # 모니터가 하나뿐인 경우
-            
+        monitor = sct.monitors[1] if len(sct.monitors) > 1 else sct.monitors[0]
         img = np.array(sct.grab(monitor))
         return cv2.cvtColor(img, cv2.COLOR_BGRA2BGR)
     except Exception as e:
-        # print(f"[Watcher] Screen Grab Error: {e}") # 너무 시끄러울 수 있음
         raise e
 
 def get_rois_by_width(width):
@@ -101,14 +105,10 @@ def get_rois_by_width(width):
         return RESOLUTION_MAP[2560]
     return RESOLUTION_MAP[1920]
 
-# 🔥 화면 변화 감지 (가벼운 연산)
 def is_screen_changed(img1, img2, threshold=1000):
     if img1 is None or img2 is None: return True
-    
-    # 해상도가 다르면 무조건 변경
     if img1.shape != img2.shape: return True
 
-    # 🔥 [수정] 1/10 리사이즈로 초고속 비교
     h, w = img1.shape[:2]
     small_h, small_w = max(1, h//10), max(1, w//10)
     
@@ -117,46 +117,57 @@ def is_screen_changed(img1, img2, threshold=1000):
 
     gray1 = cv2.cvtColor(small1, cv2.COLOR_BGR2GRAY)
     gray2 = cv2.cvtColor(small2, cv2.COLOR_BGR2GRAY)
-
     diff = cv2.absdiff(gray1, gray2)
-    # 리사이즈 했으므로 임계값도 조정해야 함 (픽셀 수가 1/100로 줄었으므로)
-    # 기존 threshold가 1000이라면 10 정도로 줄여야 함
-    sensitive_threshold = max(5, threshold // 100) 
     
+    sensitive_threshold = max(5, threshold // 100)
     non_zero_count = np.count_nonzero(diff > 30)
     return non_zero_count > sensitive_threshold
 
-def preprocess_for_ocr(img_roi):
-    gray = cv2.cvtColor(img_roi, cv2.COLOR_BGR2GRAY)
-    _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
-    height, width = binary.shape
-    binary = cv2.resize(binary, (width * 2, height * 2), interpolation=cv2.INTER_CUBIC)
-    return binary
+def normalize_text(text):
+    """특수문자 제거 및 정규화"""
+    return re.sub(r'[^\w가-힣\s]', '', text).strip()
 
+# =========================
+# OCR 함수 (PaddleOCR / Tesseract)
+# =========================
 def extract_title_text(full_img, roi_coords):
     x1, y1, x2, y2 = roi_coords
-    
-    # 이미지 범위 체크 (안전장치)
     h, w, _ = full_img.shape
     if x2 > w or y2 > h: return ""
 
     roi = full_img[y1:y2, x1:x2]
     if roi.size == 0: return ""
-    
-    processed = preprocess_for_ocr(roi)
-    text = pytesseract.image_to_string(processed, lang='kor', config="--psm 7")
-    text = re.sub(r"[^\w가-힣\s]", "", text).strip()
-    return text
+
+    if USE_PADDLE:
+        # PaddleOCR 사용
+        try:
+            # PaddleOCR은 파일 경로 또는 numpy array를 받음
+            # numpy array를 직접 넘기면 됨
+            output = OCR_MODEL.predict(input=roi, batch_size=1)
+            for res in output:
+                # res는 dict-like 객체
+                text = res.get("rec_text", "") if hasattr(res, 'get') else ""
+                # res가 객체라면 속성 접근
+                if not text and hasattr(res, 'rec_text'):
+                    text = res.rec_text
+                return normalize_text(text)
+        except Exception as e:
+            print(f"[Watcher] PaddleOCR Error: {e}")
+            return ""
+    else:
+        # Tesseract Fallback
+        gray = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        _, binary = cv2.threshold(gray, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        height, width = binary.shape
+        binary = cv2.resize(binary, (width * 2, height * 2), interpolation=cv2.INTER_CUBIC)
+        text = pytesseract.image_to_string(binary, lang='kor', config="--psm 7")
+        return normalize_text(text)
 
 def extract_three_titles(full_img):
-    # 1. 현재 화면의 너비 확인
     h, w, _ = full_img.shape
-    
-    # 2. 너비에 따른 좌표 선택
     target_rois = get_rois_by_width(w)
 
     raw_titles = []
-    # 3. 3개의 좌표(왼쪽, 중간, 오른쪽)를 순회하며 OCR 수행
     for roi in target_rois:
         text = extract_title_text(full_img, roi)
         if len(text) > 1:
@@ -164,10 +175,7 @@ def extract_three_titles(full_img):
     
     if len(raw_titles) != 3: return []
 
-    valid_count = 0
-    for t in raw_titles:
-        if is_valid_text(t): valid_count += 1
-    
+    valid_count = sum(1 for t in raw_titles if is_valid_text(t))
     return raw_titles if valid_count >= 2 else []
 
 # =========================
@@ -198,34 +206,30 @@ class AugmentWatcher:
             self._thread.join()
 
     def _loop(self):
-        print("[Watcher] OCR Monitoring started (Optimized)...")
+        ocr_type = "PaddleOCR" if USE_PADDLE else "Tesseract"
+        print(f"[Watcher] OCR Monitoring started ({ocr_type})...")
         error_count = 0
         
-        # 🔥 [핵심 1] MSS 객체를 스레드 내에서 한 번만 생성하여 사용
         with mss.mss() as sct:
             while not self._stop_event.is_set():
                 try:
                     time.sleep(POLL_INTERVAL)
                     
-                    # 1. 화면 캡처
                     try:
                         full_img = grab_screen_bgr(sct)
                     except Exception:
                         time.sleep(1)
                         continue
 
-                    # 2. 화면 변화 감지
                     has_changed = is_screen_changed(self.last_img, full_img)
                     self.last_img = full_img 
 
-                    # 3. OCR 수행 여부 결정
                     if has_changed:
                         titles = extract_three_titles(full_img)
                         self.cached_titles = titles 
                     else:
                         titles = self.cached_titles
 
-                    # 4. 데이터 안정화 및 전송 로직 (기존과 동일)
                     if not titles:
                         self.stability_count = 0
                         self.last_candidates = []
@@ -249,19 +253,15 @@ class AugmentWatcher:
                             self._send_titles(titles)
                             self.last_sent_titles = titles
                             self.last_sent_time = time.time()
-                            
-                            # 전송 성공 후 잠시 대기
                             self._smart_sleep(2.0, sct)
                             error_count = 0 
 
                 except Exception as e:
-                    # 🔥 [핵심 2] 무한 루프 사망 방지
                     error_count += 1
                     if error_count % 10 == 0:
                         print(f"[Watcher] Loop Error: {e}")
                     time.sleep(1)
 
-    # 리롤 감시하며 쉬기 (sct 객체 전달받음)
     def _smart_sleep(self, duration, sct):
         check_interval = 0.2
         steps = int(duration / check_interval)

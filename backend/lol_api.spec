@@ -1,25 +1,54 @@
 # -*- mode: python ; coding: utf-8 -*-
+# lol_api.spec - PaddleOCR 지원 버전
 
 block_cipher = None
+
+# =========================
+# PaddleOCR Hidden Imports
+# =========================
+# PaddlePaddle와 PaddleOCR은 동적으로 모듈을 로드하므로
+# PyInstaller가 자동으로 찾지 못하는 모듈들을 명시해야 합니다.
+paddle_hidden_imports = [
+    'paddle',
+    'paddle.fluid',
+    'paddle.nn',
+    'paddle.optimizer',
+    'paddleocr',
+    'skimage',
+    'skimage.transform',
+    'PIL',
+    'PIL.Image',
+    'shapely',
+    'shapely.geometry',
+    'pyclipper',
+    'lmdb',
+    'imgaug',
+]
 
 a = Analysis(
     ['app.py'],
     pathex=[],
     binaries=[],
     datas=[
-        # ( '원본파일경로', '빌드내저장경로' )
+        # 기존 데이터
         ('augments_global_ko.json', '.'),
         ('augment_mapping_full.txt', '.'),
         ('game_data.db', '.'),
-        ('Tesseract-OCR', 'Tesseract-OCR'),
         ('assets', 'assets'),
         ('data', 'data'),
+        # Tesseract 폴백용 (필요시 제거 가능)
+        ('Tesseract-OCR', 'Tesseract-OCR'),
     ],
-    hiddenimports=[],
+    hiddenimports=paddle_hidden_imports,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
-    excludes=['pandas', 'scipy'], # 용량 줄이기 위해 제외
+    excludes=[
+        'pandas',
+        'scipy',
+        'matplotlib',   # 용량 줄이기
+        'tkinter',      # 불필요
+    ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,
     cipher=block_cipher,
@@ -38,7 +67,7 @@ exe = EXE(
     bootloader_ignore_signals=False,
     strip=False,
     upx=True,
-    console=True, # 디버깅을 위해 True (배포 시 검은 창이 싫으면 False로 변경)
+    console=True,  # 디버깅용 (배포 시 False)
     disable_windowed_traceback=False,
     argv_emulation=False,
     target_arch=None,
@@ -49,7 +78,7 @@ exe = EXE(
 coll = COLLECT(
     exe,
     a.binaries,
-    a.zipfiles, # 🔥 [중요 수정] 이 부분이 빠져있어서 추가했습니다.
+    a.zipfiles,
     a.datas,
     strip=False,
     upx=True,

@@ -25,6 +25,7 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "electron": "electron .",
+    "dev": "set BROWSER=none && start /B npm start && timeout /t 5 && npm run electron",
     "dist": "npm run build && electron-builder"
   },
   "build": {
