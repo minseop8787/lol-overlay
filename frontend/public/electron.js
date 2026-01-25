@@ -9,6 +9,9 @@ const fs = require('fs');
 log.transports.file.level = 'info';
 autoUpdater.logger = log;
 
+// 🔥 자동 다운로드 비활성화 (수동 확인 방식으로 변경)
+autoUpdater.autoDownload = false;
+
 // 🔥 [하드웨어 가속 끄기] 투명창 마우스 인식을 돕습니다 (필수 권장)
 app.disableHardwareAcceleration();
 
@@ -16,9 +19,11 @@ let mainWindow;
 let tray = null;
 let backendProcess = null;
 let isQuitting = false;
+let isCheckingUpdate = false; // 업데이트 확인 중인지 플래그
+let isManualCheck = false;    // 🔥 수동 확인인지 구분 (수동일 때만 "최신 버전" 알림)
 
 // ==============================
-// 1. 트레이 아이콘 생성
+// 1. 트레이 아이콘 생성 (업데이트 확인 버튼 추가)
 // ==============================
 function createTray() {
   let iconPath;
@@ -34,25 +39,82 @@ function createTray() {
 
   try {
     tray = new Tray(iconPath);
-    const contextMenu = Menu.buildFromTemplate([
-      { label: `LoL Overlay Pro v${app.getVersion()}`, enabled: false }, // 버전 표시 추가
-      { type: 'separator' },
-      { 
-        label: '종료 (Quit)', 
-        click: () => {
-          isQuitting = true;
-          app.quit(); 
-        } 
-      }
-    ]);
+    updateTrayMenu(); // 메뉴 생성을 별도 함수로 분리
     tray.setToolTip('LoL Overlay Pro');
-    tray.setContextMenu(contextMenu);
     tray.on('click', () => {
       if (mainWindow) mainWindow.show();
     });
   } catch (e) {
     console.log("트레이 생성 실패:", e);
   }
+}
+
+// 🔥 [신규] 트레이 메뉴 업데이트 함수
+function updateTrayMenu(updateStatus = null) {
+  if (!tray) return;
+
+  let updateLabel = '🔄 업데이트 확인';
+  if (updateStatus === 'checking') {
+    updateLabel = '⏳ 확인 중...';
+  } else if (updateStatus === 'available') {
+    updateLabel = '🆕 새 버전 다운로드';
+  } else if (updateStatus === 'downloading') {
+    updateLabel = '⬇️ 다운로드 중...';
+  } else if (updateStatus === 'ready') {
+    updateLabel = '✅ 재시작하여 설치';
+  }
+
+  const contextMenu = Menu.buildFromTemplate([
+    { label: `LoL Overlay Pro v${app.getVersion()}`, enabled: false },
+    { type: 'separator' },
+    {
+      label: updateLabel,
+      click: () => handleUpdateClick(updateStatus)
+    },
+    { type: 'separator' },
+    {
+      label: '종료 (Quit)',
+      click: () => {
+        isQuitting = true;
+        app.quit();
+      }
+    }
+  ]);
+  tray.setContextMenu(contextMenu);
+}
+
+// 🔥 [신규] 업데이트 버튼 클릭 핸들러
+function handleUpdateClick(currentStatus) {
+  if (currentStatus === 'ready') {
+    // 다운로드 완료 상태면 재시작
+    isQuitting = true;
+    autoUpdater.quitAndInstall();
+  } else if (currentStatus === 'available') {
+    // 새 버전이 있으면 다운로드 시작
+    updateTrayMenu('downloading');
+    autoUpdater.downloadUpdate();
+  } else if (!isCheckingUpdate) {
+    // 그 외에는 업데이트 확인
+    checkForUpdatesManual();
+  }
+}
+
+// 🔥 [신규] 수동 업데이트 확인 함수
+function checkForUpdatesManual() {
+  if (isCheckingUpdate) return;
+
+  isCheckingUpdate = true;
+  isManualCheck = true; // 🔥 수동 확인 플래그 설정
+  updateTrayMenu('checking');
+  log.info('수동 업데이트 확인 시작...');
+
+  autoUpdater.checkForUpdates().catch((err) => {
+    log.error('업데이트 확인 실패:', err);
+    showUpdateNotification('업데이트 확인 실패', '네트워크 연결을 확인해주세요.');
+    isCheckingUpdate = false;
+    isManualCheck = false;
+    updateTrayMenu(null);
+  });
 }
 
 // ==============================
@@ -71,7 +133,28 @@ function showStartedNotification() {
     body: `v${app.getVersion()} 실행됨! 트레이에서 종료 가능합니다.`,
     silent: false,
   });
-  
+
+  if (fs.existsSync(iconPath)) {
+    notif.icon = iconPath;
+  }
+  notif.show();
+}
+
+// 🔥 [신규] 업데이트 관련 알림 함수
+function showUpdateNotification(title, body) {
+  let iconPath;
+  if (app.isPackaged) {
+    iconPath = path.join(process.resourcesPath, 'tray_icon.ico');
+  } else {
+    iconPath = path.join(__dirname, 'favicon.ico');
+  }
+
+  const notif = new Notification({
+    title: title,
+    body: body,
+    silent: false,
+  });
+
   if (fs.existsSync(iconPath)) {
     notif.icon = iconPath;
   }
@@ -88,12 +171,11 @@ function launchBackend() {
   console.log(`🚀 백엔드 실행: ${backendPath}`);
 
   const options = {
-    env: { ...process.env, PYTHONIOENCODING: 'utf-8' } 
+    env: { ...process.env, PYTHONIOENCODING: 'utf-8' }
   };
 
   try {
     backendProcess = spawn(backendPath, [], options);
-    // backendProcess.stdout.on('data', (data) => console.log(`[Backend]: ${data}`)); // 디버깅용
     backendProcess.stderr.on('data', (data) => console.error(`[Backend Error]: ${data}`));
 
     backendProcess.on('close', (code) => {
@@ -110,11 +192,11 @@ function launchBackend() {
 }
 
 // ==============================
-// 4. 메인 윈도우 생성 (GPS 기능 + 업데이트 확인)
+// 4. 메인 윈도우 생성
 // ==============================
 function createWindow() {
   const primaryDisplay = screen.getPrimaryDisplay();
-  const { width, height } = primaryDisplay.bounds; 
+  const { width, height } = primaryDisplay.bounds;
 
   mainWindow = new BrowserWindow({
     width: width,
@@ -130,7 +212,7 @@ function createWindow() {
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
-      devTools: false, // 배포 시 false 권장
+      devTools: false,
       backgroundThrottling: false,
       preload: path.join(__dirname, 'preload.js')
     }
@@ -138,8 +220,6 @@ function createWindow() {
 
   mainWindow.setAlwaysOnTop(true, 'screen-saver');
   mainWindow.setFullScreen(true);
-
-  // 클릭은 게임으로, 마우스 움직임 감지는 유지
   mainWindow.setIgnoreMouseEvents(true, { forward: true });
 
   const isDev = !app.isPackaged;
@@ -149,66 +229,82 @@ function createWindow() {
     mainWindow.loadURL(`file://${path.join(__dirname, '../build/index.html')}`);
     launchBackend();
   }
-  
+
   mainWindow.on('closed', () => (mainWindow = null));
 
-  // 🔥 [업데이트 체크] 창이 뜰 준비가 되면 업데이트 확인 시작
+  // 🔥 [수정] 창이 뜰 준비가 되면 조용히 업데이트 확인 (알림만)
   mainWindow.once('ready-to-show', () => {
-    if (!isDev) { // 개발 모드에서는 업데이트 체크 안 함
-        autoUpdater.checkForUpdatesAndNotify();
+    if (!isDev) {
+      // 조용히 확인만 하고 알림으로 알려줌
+      autoUpdater.checkForUpdates();
     }
   });
 
-  // 🔥 [핵심 유지] GPS 추적 시스템 (0.1초마다 좌표 전송)
+  // GPS 추적 시스템 (0.1초마다 좌표 전송)
   setInterval(() => {
     try {
       if (mainWindow && !mainWindow.isDestroyed()) {
-        const point = screen.getCursorScreenPoint(); // 현재 마우스 절대 좌표
-        mainWindow.webContents.send('global-mouse-move', point); // React로 전송
+        const point = screen.getCursorScreenPoint();
+        mainWindow.webContents.send('global-mouse-move', point);
       }
     } catch (e) {
       // 윈도우 종료 시 에러 무시
     }
-  }, 100); // 0.1초 간격
+  }, 100);
 }
 
 // ==============================
-// 5. 업데이트 이벤트 핸들러 (로그 & 알림)
+// 5. 업데이트 이벤트 핸들러
 // ==============================
 autoUpdater.on('checking-for-update', () => {
-    log.info('업데이트 확인 중...');
+  log.info('업데이트 확인 중...');
 });
 
-autoUpdater.on('update-available', () => {
-    log.info('새로운 업데이트 발견! 다운로드 시작...');
-    // 필요하다면 사용자에게 알림 (여기선 조용히 다운로드)
+autoUpdater.on('update-available', (info) => {
+  log.info('새로운 업데이트 발견:', info.version);
+  isCheckingUpdate = false;
+  isManualCheck = false; // 업데이트가 있으면 수동 확인 플래그 초기화
+  updateTrayMenu('available');
+
+  // 알림으로 새 버전 알려주기
+  showUpdateNotification(
+    '🆕 새로운 버전 발견!',
+    `v${info.version} 업데이트가 있습니다. 트레이 메뉴에서 다운로드하세요.`
+  );
 });
 
 autoUpdater.on('update-not-available', () => {
-    log.info('현재 최신 버전입니다.');
+  log.info('현재 최신 버전입니다.');
+  isCheckingUpdate = false;
+  updateTrayMenu(null);
+
+  // 🔥 수동 확인일 때만 "최신 버전" 알림 표시
+  if (isManualCheck) {
+    showUpdateNotification('✅ 최신 버전', '현재 최신 버전을 사용 중입니다.');
+  }
+  isManualCheck = false;
 });
 
 autoUpdater.on('error', (err) => {
-    log.error('업데이트 에러:', err);
+  log.error('업데이트 에러:', err);
+  isCheckingUpdate = false;
+  isManualCheck = false; // 에러 발생 시 수동 확인 플래그 초기화
+  updateTrayMenu(null);
 });
 
-autoUpdater.on('update-downloaded', () => {
-    log.info('다운로드 완료. 앱 종료 시 설치됩니다.');
-    
-    // 사용자에게 "지금 재시작하시겠습니까?" 물어보기
-    dialog.showMessageBox({
-        type: 'info',
-        title: '업데이트 설치',
-        message: '새로운 버전이 다운로드되었습니다. 지금 재시작하여 설치하시겠습니까?',
-        buttons: ['지금 재시작', '나중에']
-    }).then((result) => {
-        if (result.response === 0) { // '지금 재시작' 클릭 시
-            isQuitting = true;
-            autoUpdater.quitAndInstall();
-        }
-    });
+autoUpdater.on('download-progress', (progressObj) => {
+  log.info(`다운로드 중: ${progressObj.percent.toFixed(1)}%`);
 });
 
+autoUpdater.on('update-downloaded', (info) => {
+  log.info('다운로드 완료. 재시작하면 설치됩니다.');
+  updateTrayMenu('ready');
+
+  showUpdateNotification(
+    '✅ 다운로드 완료!',
+    `v${info.version} 설치 준비 완료. 트레이 메뉴에서 '재시작하여 설치'를 클릭하세요.`
+  );
+});
 
 // ==============================
 // 6. IPC 통신 핸들러
