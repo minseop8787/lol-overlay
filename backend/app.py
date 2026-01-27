@@ -11,7 +11,6 @@ import sys
 import io
 
 # 🔥 [필수] 인코딩 설정 (PyInstaller 빌드 시 에러 방지)
-# 🔥 [필수] 인코딩 설정 (PyInstaller 빌드 시 에러 방지)
 sys.stdout = io.TextIOWrapper(sys.stdout.detach(), encoding='utf-8', errors='replace')
 sys.stderr = io.TextIOWrapper(sys.stderr.detach(), encoding='utf-8', errors='replace')
 

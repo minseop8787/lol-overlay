@@ -1,41 +1,34 @@
 # -*- mode: python ; coding: utf-8 -*-
-# lol_api.spec - PaddleOCR 전용 버전 (Tesseract 완전 제거)
+# lol_api.spec - EasyOCR 버전 (PaddleOCR에서 전환)
 # ============================================================
 # 변경사항:
-# 1. Tesseract-OCR 폴더 제거 (40MB+ 절감)
-# 2. PaddleOCR Hidden Imports 최적화
-# 3. 불필요한 라이브러리 제외 목록 확장
+# 1. PaddleOCR → EasyOCR 전환
+# 2. 의존성 대폭 단순화
+# 3. Tesseract/PaddleX 완전 제거
 # ============================================================
+
+from PyInstaller.utils.hooks import collect_submodules, collect_data_files
 
 block_cipher = None
 
 # =========================
-# PaddleOCR/PaddlePaddle Hidden Imports
+# EasyOCR Hidden Imports
 # =========================
-# PaddlePaddle은 동적으로 모듈을 로드하므로 명시적 선언 필요
-paddle_hidden_imports = [
-    # PaddlePaddle Core
-    'paddle',
-    'paddle.base',
-    'paddle.base.core',
-    'paddle.fluid',
-    'paddle.nn',
-    'paddle.optimizer',
-    'paddle.vision',
-    'paddle.utils',
+easyocr_hidden_imports = [
+    # EasyOCR Core
+    'easyocr',
+    'easyocr.easyocr',
     
-    # PaddleOCR
-    'paddleocr',
-    'paddleocr.paddleocr',
-    
-    # PaddleX (PP-OCRv5 사용 시)
-    'paddlex',
+    # PyTorch (EasyOCR 의존성)
+    'torch',
+    'torchvision',
     
     # 이미지 처리 관련
     'PIL',
     'PIL.Image',
     'skimage',
     'skimage.transform',
+    'cv2',
     
     # 기하학 연산
     'shapely',
@@ -43,11 +36,14 @@ paddle_hidden_imports = [
     'pyclipper',
     
     # 기타 의존성
-    'lmdb',
-    'imgaug',
     'yaml',
-    'attrdict',
+    'bidi',
+    'bidi.algorithm',
 ]
+
+# 동적 모듈 수집
+jaraco_imports = collect_submodules('jaraco')
+easyocr_submodules = collect_submodules('easyocr')
 
 a = Analysis(
     ['app.py'],
@@ -61,23 +57,16 @@ a = Analysis(
         ('assets', 'assets'),
         ('data', 'data'),
         
-        # ===== Tesseract 제거됨 =====
-        # ('Tesseract-OCR', 'Tesseract-OCR'),  # 🔥 삭제 (40MB 절감)
-        
-        # ===== PaddleOCR 모델 (선택사항) =====
-        # 모델은 첫 실행 시 자동 다운로드되므로 번들링 불필요
-        # 오프라인 배포가 필요한 경우에만 아래 주석 해제:
-        # (os.path.expanduser('~/.paddlex/official_models/korean_PP-OCRv5_mobile_rec'), 
-        #  'paddlex_models/korean_PP-OCRv5_mobile_rec'),
+        # ===== EasyOCR 모델 (첫 실행 시 자동 다운로드됨) =====
+        # 오프라인 배포가 필요하면 아래 주석 해제:
+        # (os.path.expanduser('~/.EasyOCR/model'), 'easyocr_models'),
     ],
-    hiddenimports=paddle_hidden_imports,
+    hiddenimports=easyocr_hidden_imports + jaraco_imports + easyocr_submodules,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
     excludes=[
         # ===== 용량 최적화: 불필요한 라이브러리 제외 =====
-        'pandas',           # 데이터프레임 불필요
-        'scipy',            # 과학 계산 불필요
         'matplotlib',       # 시각화 불필요
         'tkinter',          # GUI 불필요
         'PyQt5',            # GUI 불필요
@@ -88,10 +77,21 @@ a = Analysis(
         'notebook',         # Jupyter 불필요
         'sphinx',           # 문서 생성 불필요
         'pytest',           # 테스트 불필요
-        'setuptools',       # 패키징 도구 불필요 (런타임)
         
-        # ===== Tesseract 관련 완전 제거 =====
-        'pytesseract',      # 🔥 Tesseract 바인딩 제거
+        # ===== 🔥 대용량 불필요 라이브러리 제거 (~350MB 절감) =====
+        'tensorflow',       # 309MB - 완전 불필요
+        'keras',            # TensorFlow 의존성
+        'h5py',             # 6MB - TensorFlow 의존성
+        'tensorboard',      # TensorFlow 의존성
+        'pandas',           # 17MB - 불필요
+        'grpc',             # 5MB - TensorFlow 의존성
+        'google',           # TensorFlow 의존성
+        
+        # ===== 제거된 OCR 관련 =====
+        'pytesseract',      # Tesseract 완전 제거
+        'paddleocr',        # PaddleOCR 완전 제거
+        'paddlex',          # PaddleX 완전 제거
+        'paddle',           # PaddlePaddle 완전 제거
     ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,

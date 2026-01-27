@@ -22,13 +22,14 @@ import mss
 import requests
 
 # =========================
-# PaddleOCR 초기화
+# EasyOCR 초기화 (PaddleOCR에서 전환)
 # =========================
-from paddleocr import TextRecognition
+import easyocr
 
-print("[Watcher] Loading PaddleOCR Model (korean_PP-OCRv5_mobile_rec)...")
-OCR_MODEL = TextRecognition(model_name="korean_PP-OCRv5_mobile_rec")
-print("[Watcher] ✅ PaddleOCR Model Loaded!")
+print("[Watcher] Loading EasyOCR Model (Korean + English)...")
+# GPU 사용 가능하면 자동 사용, 없으면 CPU
+OCR_READER = easyocr.Reader(['ko', 'en'], gpu=False, verbose=False)
+print("[Watcher] ✅ EasyOCR Model Loaded!")
 
 # =========================
 # 설정값
@@ -188,7 +189,7 @@ def is_roi_changed(old_hash, new_hash, old_var, new_var, var_threshold=500):
     return False
 
 # =========================
-# OCR 처리 (Fuzzy Matching 적용)
+# OCR 처리 (EasyOCR + Fuzzy Matching 적용)
 # =========================
 def extract_titles_batch(roi_images):
     if not roi_images or any(img is None for img in roi_images):
@@ -198,16 +199,19 @@ def extract_titles_batch(roi_images):
     
     try:
         for roi in roi_images:
-            output = OCR_MODEL.predict(input=roi, batch_size=1)
-            for res in output:
-                text = res.get("rec_text", "") if hasattr(res, 'get') else ""
-                if not text and hasattr(res, 'rec_text'):
-                    text = res.rec_text
+            # EasyOCR: RGB 이미지 필요 (BGR → RGB 변환)
+            rgb_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2RGB)
+            
+            # detail=0: 텍스트만 반환 (bounding box 없음)
+            results = OCR_READER.readtext(rgb_roi, detail=0)
+            
+            # 첫 번째 결과만 사용 (증강 이름은 한 줄)
+            if results:
+                text = results[0].strip()
                 if text:
                     raw_titles.append(text)
-                break
     except Exception as e:
-        print(f"[Watcher] PaddleOCR Error: {e}")
+        print(f"[Watcher] EasyOCR Error: {e}")
         return []
     
     if len(raw_titles) != 3:
