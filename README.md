@@ -10,13 +10,9 @@
 2.  **Tesseract OCR 5.0 (Reader)**: 버튼이 확인되면, 3개의 카드 영역만 정밀 스캔하여 텍스트를 추출합니다.
 3.  **퍼지 텍스트 매칭 (Validator)**: 인식된 글자에 오타가 있더라도, 자체 보유한 155개 증강 데이터베이스와 대조하여 올바른 이름을 찾아냅니다. (예: "마범공학" -> "마법공학")
 
-### 2. 🧠 지능형 증강 식별 (Context-Aware)
-*   **동일 아이콘 문제 해결**: 이미지 매칭으로는 불가능했던 **"똑같은 그림이지만 다른 증강"** (예: 챔피언 전용 증강들)을 텍스트 기반으로 완벽하게 구분합니다.
-*   **티어 시스템**:
-    *   **전용 증강**: 현재 플레이 중인 챔피언에게 얼마나 좋은지 분석.
-    *   **공용 증강**: 전체 챔피언 통계 기반의 범용 성능 표시.
 
-### 3. 🛡️ 안티 고스팅 (Ghost Overlay Prevention)
+
+### 2. 🛡️ 안티 고스팅 (Ghost Overlay Prevention)
 *   **데이터 필터링 예외 처리**: DB에 없는 신규/희귀 증강이 나오더라도 오버레이가 사라지지 않고 "이름"은 표시해주도록 로직을 개선했습니다 (`Unknown` 태그 처리).
 *   **프로세스 강제 정리**: 설치 및 종료 시 좀비 프로세스(`taskkill`)를 자동으로 정리하여 충돌을 방지합니다.
 
@@ -44,36 +40,8 @@
 *   **Python**: v3.10+ (Anaconda 권장)
 *   **Tesseract-OCR**: `backend/Tesseract-OCR` 폴더에 바이너리 포함 필요.
 
-### 1단계: 백엔드 빌드 (Python)
-의존성(OpenCV, Tesseract, Flask 등)을 단일 실행 파일로 압축합니다.
-```bash
-cd backend
-# 기존 빌드 정리
-rmdir /s /q dist build
-# 스펙 파일로 빌드 (Tesseract 폴더 포함)
-python -m PyInstaller build.spec --clean --noconfirm
-```
-> **성공 기준**: `backend/dist/lol_overlay.exe` 생성 확인.
-
-### 2단계: 프론트엔드 및 인스톨러 빌드 (Electron)
-React 앱을 빌드하고, 1단계에서 만든 백엔드 exe를 내장하여 최종 설치 파일(`setup.exe`)을 생성합니다.
-```bash
-cd frontend
-# package.json의 file 포함 규칙 적용
-npm run dist
-```
-> **최종 결과물**: `frontend/dist/LoL-Overlay-Pro-Setup-1.0.9.exe`
-
----
-
-## 📝 패치 노트 (History)
-
-### v1.0.9 (Current)
+### v1.0.8 (Current)
 *   **[개선] 오인식 방지 로직**: 증강 선택 버튼(Confirm Button) 템플릿 매칭 추가 (신뢰도 0.85).
 *   **[복구] OCR 엔진 재도입**: 유사 이미지 구분을 위해 이미지 매칭 -> OCR로 회귀 (정확도 상승).
 *   **[수정] 빈 화면 버그**: DB 매핑 실패 시에도 원본 텍스트를 출력하도록 Fallback 로직 추가.
 *   **[수정] 설치 오류**: `taskkill` 명령어로 잔존 프로세스 자동 종료 기능 추가.
-
-### v1.0.8
-*   초기 이미지 매칭 기술 도입 시도 (폐기됨 - 중복 아이콘 문제).
-*   Electron-Python 통신 구조 안정화.
