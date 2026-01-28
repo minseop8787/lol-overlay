@@ -245,9 +245,17 @@ def enrich_ocr_augments(names_ko):
             if matches:
                 name_en = _AUGMENT_MAP_NORMALIZED[matches[0]]
 
-        # 영어 이름을 못 찾았으면 건너뜀
+        # 영어 이름을 못 찾았어도 한글 이름이라도 보여주기 위해 유지
         if not name_en:
-            continue
+            # print(f"[DB] Unknown Augment: {raw_ko} (Norm: {clean_ko})")
+            name_en = "" # 빈 문자열로 유지
+            
+        # 3. 글로벌 통계 데이터 조회
+        # ... (이하 로직은 name_en이 있으면 찾고, 없으면 기본값 사용)
+        
+        # 영어 정규화 키
+        clean_en = normalize_name(name_en) if name_en else ""
+        stats = _GLOBAL_AUG_STATS.get(clean_en, {})
 
         # 3. 영어 이름 -> 범용 통계 찾기
         clean_en = normalize_name(name_en)

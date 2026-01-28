@@ -21,6 +21,24 @@ import shop_detector
 app = Flask(__name__)
 CORS(app)
 
+# 🔥 [디버깅] 파일 로깅 추가 (빌드 후 실행 시 에러 확인용)
+import logging
+log_filename = os.path.join(os.path.dirname(sys.executable) if getattr(sys, 'frozen', False) else os.path.dirname(os.path.abspath(__file__)), 'server_debug.txt')
+logging.basicConfig(filename=log_filename, level=logging.DEBUG, 
+                    format='%(asctime)s %(levelname)s: %(message)s', encoding='utf-8')
+
+# 콘솔 출력도 로깅에 연결 (선택사항)
+def log_print(*args, **kwargs):
+    msg = " ".join(map(str, args))
+    logging.info(msg)
+    # print(msg, **kwargs) # 🔥 재귀 호출 방지: print 제거
+
+# print 덮어쓰기 제거
+# import builtins
+# builtins.print = log_print
+
+logging.info(f"[Server] Starting... Log file: {log_filename}")
+
 # ==========================================
 # 전역 상태 (Global State)
 # ==========================================

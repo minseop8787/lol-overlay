@@ -1,33 +1,34 @@
 # -*- mode: python ; coding: utf-8 -*-
-# lol_api.spec - EasyOCR 버전 (PaddleOCR에서 전환)
+# lol_api.spec - RapidOCR 버전 (ONNX Runtime 기반)
 # ============================================================
 # 변경사항:
-# 1. PaddleOCR → EasyOCR 전환
-# 2. 의존성 대폭 단순화
-# 3. Tesseract/PaddleX 완전 제거
+# 1. PaddleOCR/PaddleX → RapidOCR 전환
+# 2. ONNX Runtime 기반으로 의존성 대폭 단순화
+# 3. PyTorch/PaddlePaddle 완전 제거
 # ============================================================
 
+# 🔥 [중요] RecursionError 해결을 위한 재귀 한도 증가
+import sys
+sys.setrecursionlimit(sys.getrecursionlimit() * 5)
+
 from PyInstaller.utils.hooks import collect_submodules, collect_data_files
+import os
 
 block_cipher = None
 
 # =========================
-# EasyOCR Hidden Imports
+# RapidOCR Hidden Imports
 # =========================
-easyocr_hidden_imports = [
-    # EasyOCR Core
-    'easyocr',
-    'easyocr.easyocr',
+rapidocr_hidden_imports = [
+    # RapidOCR Core
+    'rapidocr_onnxruntime',
     
-    # PyTorch (EasyOCR 의존성)
-    'torch',
-    'torchvision',
+    # ONNX Runtime
+    'onnxruntime',
     
     # 이미지 처리 관련
     'PIL',
     'PIL.Image',
-    'skimage',
-    'skimage.transform',
     'cv2',
     
     # 기하학 연산
@@ -37,13 +38,14 @@ easyocr_hidden_imports = [
     
     # 기타 의존성
     'yaml',
-    'bidi',
-    'bidi.algorithm',
 ]
 
 # 동적 모듈 수집
 jaraco_imports = collect_submodules('jaraco')
-easyocr_submodules = collect_submodules('easyocr')
+rapidocr_submodules = collect_submodules('rapidocr_onnxruntime')
+
+# RapidOCR 모델 데이터 수집
+rapidocr_datas = collect_data_files('rapidocr_onnxruntime')
 
 a = Analysis(
     ['app.py'],
@@ -56,12 +58,9 @@ a = Analysis(
         ('game_data.db', '.'),
         ('assets', 'assets'),
         ('data', 'data'),
-        
-        # ===== EasyOCR 모델 (첫 실행 시 자동 다운로드됨) =====
-        # 오프라인 배포가 필요하면 아래 주석 해제:
-        # (os.path.expanduser('~/.EasyOCR/model'), 'easyocr_models'),
-    ],
-    hiddenimports=easyocr_hidden_imports + jaraco_imports + easyocr_submodules,
+        ('models', 'models'),  # 🔥 [중요] 한국어 모델(det/rec/dict) 폴더 포함
+    ] + rapidocr_datas,  # RapidOCR 기본 파일 포함 (안전망)
+    hiddenimports=rapidocr_hidden_imports + jaraco_imports + rapidocr_submodules,
     hookspath=[],
     hooksconfig={},
     runtime_hooks=[],
@@ -78,20 +77,22 @@ a = Analysis(
         'sphinx',           # 문서 생성 불필요
         'pytest',           # 테스트 불필요
         
-        # ===== 🔥 대용량 불필요 라이브러리 제거 (~350MB 절감) =====
-        'tensorflow',       # 309MB - 완전 불필요
+        # ===== 🔥 대용량 불필요 라이브러리 완전 제거 =====
+        'tensorflow',       # 완전 불필요
         'keras',            # TensorFlow 의존성
-        'h5py',             # 6MB - TensorFlow 의존성
+        'h5py',             # TensorFlow 의존성
         'tensorboard',      # TensorFlow 의존성
-        'pandas',           # 17MB - 불필요
-        'grpc',             # 5MB - TensorFlow 의존성
-        'google',           # TensorFlow 의존성
+        'torch',            # PyTorch 제거 (315MB 절감)
+        'torchvision',      # PyTorch 제거
         
-        # ===== 제거된 OCR 관련 =====
-        'pytesseract',      # Tesseract 완전 제거
-        'paddleocr',        # PaddleOCR 완전 제거
-        'paddlex',          # PaddleX 완전 제거
-        'paddle',           # PaddlePaddle 완전 제거
+        # ===== PaddleOCR/PaddleX 완전 제거 =====
+        'paddleocr',        # PaddleOCR 제거
+        'paddlex',          # PaddleX 제거
+        'paddle',           # PaddlePaddle 제거
+        
+        # ===== 기타 =====
+        'pytesseract',      # Tesseract 제거
+        'easyocr',          # EasyOCR 제거
     ],
     win_no_prefer_redirects=False,
     win_private_assemblies=False,

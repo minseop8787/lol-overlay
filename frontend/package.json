@@ -1,6 +1,6 @@
 {
   "name": "lol-overlay",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "LoL ARAM Overlay",
   "repository": {
     "type": "git",
@@ -29,6 +29,12 @@
     "dist": "npm run build && electron-builder"
   },
   "build": {
+    "files": [
+      "build/**/*",
+      "public/**/*",
+      "node_modules/**/*",
+      "package.json"
+    ],
     "appId": "com.loloverlay.app",
     "productName": "LoL Overlay Pro",
     "publish": [
@@ -55,8 +61,8 @@
     },
     "extraResources": [
       {
-        "from": "../backend/dist/lol_api",
-        "to": "lol_backend"
+        "from": "../backend/dist/lol_overlay.exe",
+        "to": "lol_backend/lol_overlay.exe"
       },
       {
         "from": "public/favicon.ico",

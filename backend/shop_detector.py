@@ -12,8 +12,8 @@ def resource_path(relative_path):
         base_path = os.path.dirname(os.path.abspath(__file__))
     return os.path.join(base_path, relative_path)
 
-# 템플릿 로드 (경로 수정)
-TEMPLATE_PATH = resource_path(os.path.join("assets", "shop_template.png"))
+# 템플릿 로드 (경로 수정: 빌드 시 루트에 포함됨)
+TEMPLATE_PATH = resource_path("shop_template.png")
 
 template = None
 if os.path.exists(TEMPLATE_PATH):

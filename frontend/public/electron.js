@@ -167,7 +167,7 @@ function showUpdateNotification(title, body) {
 function launchBackend() {
   if (backendProcess) return;
 
-  const backendPath = path.join(process.resourcesPath, 'lol_backend', 'lol_api.exe');
+  const backendPath = path.join(process.resourcesPath, 'lol_backend', 'lol_overlay.exe');
   console.log(`🚀 백엔드 실행: ${backendPath}`);
 
   const options = {
